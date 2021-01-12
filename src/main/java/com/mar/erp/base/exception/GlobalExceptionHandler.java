@@ -35,11 +35,15 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
             //如果是ajax请求，都返回json字符串
             if(e instanceof BusinessException){
+                //后台报错
+                e.printStackTrace();
                 //自定义异常
                 mv.addObject("msg",((BusinessException) e).getMsg());
                 mv.addObject("code",((BusinessException) e).getCode());
                 mv.addObject("success","false");
             }else{
+                //控制台报错
+                e.printStackTrace();
                 //未知异常
                 mv.addObject("msg","系统崩溃了,请联系管理员！");
                 mv.addObject("code", "999");
