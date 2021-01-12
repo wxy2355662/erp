@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.sell.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.sell.model.Order" >
+    <constructor >
+      <idArg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_cid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_create" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="order_create_person" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_ydh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_money" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="order_statc" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, order_cid, order_create, order_create_person, order_ydh, order_money, order_statc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.sell.model.Order" >
+    insert into erp_order (order_id, order_cid, order_create, 
+      order_create_person, order_ydh, order_money, 
+      order_statc)
+    values (#{orderId,jdbcType=BIGINT}, #{orderCid,jdbcType=BIGINT}, #{orderCreate,jdbcType=TIMESTAMP}, 
+      #{orderCreatePerson,jdbcType=VARCHAR}, #{orderYdh,jdbcType=VARCHAR}, #{orderMoney,jdbcType=DECIMAL}, 
+      #{orderStatc,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.sell.model.Order" >
+    insert into erp_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderCid != null" >
+        order_cid,
+      </if>
+      <if test="orderCreate != null" >
+        order_create,
+      </if>
+      <if test="orderCreatePerson != null" >
+        order_create_person,
+      </if>
+      <if test="orderYdh != null" >
+        order_ydh,
+      </if>
+      <if test="orderMoney != null" >
+        order_money,
+      </if>
+      <if test="orderStatc != null" >
+        order_statc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCid != null" >
+        #{orderCid,jdbcType=BIGINT},
+      </if>
+      <if test="orderCreate != null" >
+        #{orderCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCreatePerson != null" >
+        #{orderCreatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYdh != null" >
+        #{orderYdh,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMoney != null" >
+        #{orderMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderStatc != null" >
+        #{orderStatc,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sell.model.Order" >
+    update erp_order
+    <set >
+      <if test="orderCid != null" >
+        order_cid = #{orderCid,jdbcType=BIGINT},
+      </if>
+      <if test="orderCreate != null" >
+        order_create = #{orderCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCreatePerson != null" >
+        order_create_person = #{orderCreatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYdh != null" >
+        order_ydh = #{orderYdh,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMoney != null" >
+        order_money = #{orderMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderStatc != null" >
+        order_statc = #{orderStatc,jdbcType=BIGINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.sell.model.Order" >
+    update erp_order
+    set order_cid = #{orderCid,jdbcType=BIGINT},
+      order_create = #{orderCreate,jdbcType=TIMESTAMP},
+      order_create_person = #{orderCreatePerson,jdbcType=VARCHAR},
+      order_ydh = #{orderYdh,jdbcType=VARCHAR},
+      order_money = #{orderMoney,jdbcType=DECIMAL},
+      order_statc = #{orderStatc,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>

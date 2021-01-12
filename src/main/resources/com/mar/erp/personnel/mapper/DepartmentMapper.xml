@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.personnel.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.personnel.model.Department" >
+    <constructor >
+      <idArg column="dep_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="dep_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dep_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dep_id, dep_name, dep_phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_department
+    where dep_id = #{depId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_department
+    where dep_id = #{depId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.personnel.model.Department" >
+    insert into erp_department (dep_id, dep_name, dep_phone
+      )
+    values (#{depId,jdbcType=BIGINT}, #{depName,jdbcType=VARCHAR}, #{depPhone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.personnel.model.Department" >
+    insert into erp_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depId != null" >
+        dep_id,
+      </if>
+      <if test="depName != null" >
+        dep_name,
+      </if>
+      <if test="depPhone != null" >
+        dep_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depId != null" >
+        #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="depName != null" >
+        #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depPhone != null" >
+        #{depPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.personnel.model.Department" >
+    update erp_department
+    <set >
+      <if test="depName != null" >
+        dep_name = #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depPhone != null" >
+        dep_phone = #{depPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dep_id = #{depId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.personnel.model.Department" >
+    update erp_department
+    set dep_name = #{depName,jdbcType=VARCHAR},
+      dep_phone = #{depPhone,jdbcType=VARCHAR}
+    where dep_id = #{depId,jdbcType=BIGINT}
+  </update>
+</mapper>

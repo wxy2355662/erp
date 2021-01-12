@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.personnel.mapper.AtaffMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.personnel.model.Ataff" >
+    <constructor >
+      <idArg column="ata_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ata_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ata_date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="ata_dep" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ata_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ata_id, ata_username, ata_password, ata_realname, ata_sex, ata_email, ata_phone, 
+    ata_date, ata_dep, ata_address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_ataff
+    where ata_id = #{ataId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_ataff
+    where ata_id = #{ataId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.personnel.model.Ataff" >
+    insert into erp_ataff (ata_id, ata_username, ata_password, 
+      ata_realname, ata_sex, ata_email, 
+      ata_phone, ata_date, ata_dep, 
+      ata_address)
+    values (#{ataId,jdbcType=BIGINT}, #{ataUsername,jdbcType=VARCHAR}, #{ataPassword,jdbcType=VARCHAR}, 
+      #{ataRealname,jdbcType=VARCHAR}, #{ataSex,jdbcType=VARCHAR}, #{ataEmail,jdbcType=VARCHAR}, 
+      #{ataPhone,jdbcType=VARCHAR}, #{ataDate,jdbcType=DATE}, #{ataDep,jdbcType=BIGINT}, 
+      #{ataAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.personnel.model.Ataff" >
+    insert into erp_ataff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ataId != null" >
+        ata_id,
+      </if>
+      <if test="ataUsername != null" >
+        ata_username,
+      </if>
+      <if test="ataPassword != null" >
+        ata_password,
+      </if>
+      <if test="ataRealname != null" >
+        ata_realname,
+      </if>
+      <if test="ataSex != null" >
+        ata_sex,
+      </if>
+      <if test="ataEmail != null" >
+        ata_email,
+      </if>
+      <if test="ataPhone != null" >
+        ata_phone,
+      </if>
+      <if test="ataDate != null" >
+        ata_date,
+      </if>
+      <if test="ataDep != null" >
+        ata_dep,
+      </if>
+      <if test="ataAddress != null" >
+        ata_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ataId != null" >
+        #{ataId,jdbcType=BIGINT},
+      </if>
+      <if test="ataUsername != null" >
+        #{ataUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ataPassword != null" >
+        #{ataPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ataRealname != null" >
+        #{ataRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="ataSex != null" >
+        #{ataSex,jdbcType=VARCHAR},
+      </if>
+      <if test="ataEmail != null" >
+        #{ataEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="ataPhone != null" >
+        #{ataPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ataDate != null" >
+        #{ataDate,jdbcType=DATE},
+      </if>
+      <if test="ataDep != null" >
+        #{ataDep,jdbcType=BIGINT},
+      </if>
+      <if test="ataAddress != null" >
+        #{ataAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.personnel.model.Ataff" >
+    update erp_ataff
+    <set >
+      <if test="ataUsername != null" >
+        ata_username = #{ataUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ataPassword != null" >
+        ata_password = #{ataPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ataRealname != null" >
+        ata_realname = #{ataRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="ataSex != null" >
+        ata_sex = #{ataSex,jdbcType=VARCHAR},
+      </if>
+      <if test="ataEmail != null" >
+        ata_email = #{ataEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="ataPhone != null" >
+        ata_phone = #{ataPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ataDate != null" >
+        ata_date = #{ataDate,jdbcType=DATE},
+      </if>
+      <if test="ataDep != null" >
+        ata_dep = #{ataDep,jdbcType=BIGINT},
+      </if>
+      <if test="ataAddress != null" >
+        ata_address = #{ataAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ata_id = #{ataId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.personnel.model.Ataff" >
+    update erp_ataff
+    set ata_username = #{ataUsername,jdbcType=VARCHAR},
+      ata_password = #{ataPassword,jdbcType=VARCHAR},
+      ata_realname = #{ataRealname,jdbcType=VARCHAR},
+      ata_sex = #{ataSex,jdbcType=VARCHAR},
+      ata_email = #{ataEmail,jdbcType=VARCHAR},
+      ata_phone = #{ataPhone,jdbcType=VARCHAR},
+      ata_date = #{ataDate,jdbcType=DATE},
+      ata_dep = #{ataDep,jdbcType=BIGINT},
+      ata_address = #{ataAddress,jdbcType=VARCHAR}
+    where ata_id = #{ataId,jdbcType=BIGINT}
+  </update>
+</mapper>

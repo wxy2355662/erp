@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.purchase.mapper.ReturnGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.purchase.model.ReturnGoods" >
+    <constructor >
+      <idArg column="r_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="r_createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="r_crecker" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_supplieruuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="r_totalmoney" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="r_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="p_waybill" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="p_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_createtime, r_crecker, r_supplieruuid, r_totalmoney, r_state, p_waybill, 
+    p_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_return_goods
+    where r_id = #{rId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_return_goods
+    where r_id = #{rId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.purchase.model.ReturnGoods" >
+    insert into erp_return_goods (r_id, r_createtime, r_crecker, 
+      r_supplieruuid, r_totalmoney, r_state, 
+      p_waybill, p_id)
+    values (#{rId,jdbcType=BIGINT}, #{rCreatetime,jdbcType=TIMESTAMP}, #{rCrecker,jdbcType=VARCHAR}, 
+      #{rSupplieruuid,jdbcType=BIGINT}, #{rTotalmoney,jdbcType=DECIMAL}, #{rState,jdbcType=INTEGER}, 
+      #{pWaybill,jdbcType=VARCHAR}, #{pId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.ReturnGoods" >
+    insert into erp_return_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rCreatetime != null" >
+        r_createtime,
+      </if>
+      <if test="rCrecker != null" >
+        r_crecker,
+      </if>
+      <if test="rSupplieruuid != null" >
+        r_supplieruuid,
+      </if>
+      <if test="rTotalmoney != null" >
+        r_totalmoney,
+      </if>
+      <if test="rState != null" >
+        r_state,
+      </if>
+      <if test="pWaybill != null" >
+        p_waybill,
+      </if>
+      <if test="pId != null" >
+        p_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=BIGINT},
+      </if>
+      <if test="rCreatetime != null" >
+        #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rCrecker != null" >
+        #{rCrecker,jdbcType=VARCHAR},
+      </if>
+      <if test="rSupplieruuid != null" >
+        #{rSupplieruuid,jdbcType=BIGINT},
+      </if>
+      <if test="rTotalmoney != null" >
+        #{rTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rState != null" >
+        #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="pWaybill != null" >
+        #{pWaybill,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null" >
+        #{pId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.purchase.model.ReturnGoods" >
+    update erp_return_goods
+    <set >
+      <if test="rCreatetime != null" >
+        r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rCrecker != null" >
+        r_crecker = #{rCrecker,jdbcType=VARCHAR},
+      </if>
+      <if test="rSupplieruuid != null" >
+        r_supplieruuid = #{rSupplieruuid,jdbcType=BIGINT},
+      </if>
+      <if test="rTotalmoney != null" >
+        r_totalmoney = #{rTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rState != null" >
+        r_state = #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="pWaybill != null" >
+        p_waybill = #{pWaybill,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null" >
+        p_id = #{pId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.purchase.model.ReturnGoods" >
+    update erp_return_goods
+    set r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      r_crecker = #{rCrecker,jdbcType=VARCHAR},
+      r_supplieruuid = #{rSupplieruuid,jdbcType=BIGINT},
+      r_totalmoney = #{rTotalmoney,jdbcType=DECIMAL},
+      r_state = #{rState,jdbcType=INTEGER},
+      p_waybill = #{pWaybill,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=BIGINT}
+    where r_id = #{rId,jdbcType=BIGINT}
+  </update>
+</mapper>

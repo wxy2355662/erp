@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.base.mapper.OperationMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.base.model.Operation" >
+    <constructor >
+      <idArg column="c_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_info" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_jg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_pid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="c_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_info, c_jg, c_pid, c_time, c_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_operation
+    where c_id = #{cId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_operation
+    where c_id = #{cId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.base.model.Operation" >
+    insert into erp_operation (c_id, c_name, c_info, 
+      c_jg, c_pid, c_time, 
+      c_type)
+    values (#{cId,jdbcType=BIGINT}, #{cName,jdbcType=VARCHAR}, #{cInfo,jdbcType=VARCHAR}, 
+      #{cJg,jdbcType=VARCHAR}, #{cPid,jdbcType=BIGINT}, #{cTime,jdbcType=TIMESTAMP}, 
+      #{cType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.base.model.Operation" >
+    insert into erp_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cInfo != null" >
+        c_info,
+      </if>
+      <if test="cJg != null" >
+        c_jg,
+      </if>
+      <if test="cPid != null" >
+        c_pid,
+      </if>
+      <if test="cTime != null" >
+        c_time,
+      </if>
+      <if test="cType != null" >
+        c_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=BIGINT},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cInfo != null" >
+        #{cInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cJg != null" >
+        #{cJg,jdbcType=VARCHAR},
+      </if>
+      <if test="cPid != null" >
+        #{cPid,jdbcType=BIGINT},
+      </if>
+      <if test="cTime != null" >
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.base.model.Operation" >
+    update erp_operation
+    <set >
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cInfo != null" >
+        c_info = #{cInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cJg != null" >
+        c_jg = #{cJg,jdbcType=VARCHAR},
+      </if>
+      <if test="cPid != null" >
+        c_pid = #{cPid,jdbcType=BIGINT},
+      </if>
+      <if test="cTime != null" >
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cType != null" >
+        c_type = #{cType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.base.model.Operation" >
+    update erp_operation
+    set c_name = #{cName,jdbcType=VARCHAR},
+      c_info = #{cInfo,jdbcType=VARCHAR},
+      c_jg = #{cJg,jdbcType=VARCHAR},
+      c_pid = #{cPid,jdbcType=BIGINT},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      c_type = #{cType,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=BIGINT}
+  </update>
+</mapper>

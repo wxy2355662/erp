@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.sell.mapper.OrderListMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.sell.model.OrderList" >
+    <constructor >
+      <idArg column="ol_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="good_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="good_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="good_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="good_money" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="good_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="good_oid" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ol_id, order_id, good_id, good_name, good_price, good_count, good_money, good_type, 
+    good_oid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_order_list
+    where ol_id = #{olId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_order_list
+    where ol_id = #{olId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.sell.model.OrderList" >
+    insert into erp_order_list (ol_id, order_id, good_id, 
+      good_name, good_price, good_count, 
+      good_money, good_type, good_oid
+      )
+    values (#{olId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodId,jdbcType=BIGINT}, 
+      #{goodName,jdbcType=VARCHAR}, #{goodPrice,jdbcType=DECIMAL}, #{goodCount,jdbcType=BIGINT}, 
+      #{goodMoney,jdbcType=DECIMAL}, #{goodType,jdbcType=INTEGER}, #{goodOid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.sell.model.OrderList" >
+    insert into erp_order_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="olId != null" >
+        ol_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodId != null" >
+        good_id,
+      </if>
+      <if test="goodName != null" >
+        good_name,
+      </if>
+      <if test="goodPrice != null" >
+        good_price,
+      </if>
+      <if test="goodCount != null" >
+        good_count,
+      </if>
+      <if test="goodMoney != null" >
+        good_money,
+      </if>
+      <if test="goodType != null" >
+        good_type,
+      </if>
+      <if test="goodOid != null" >
+        good_oid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="olId != null" >
+        #{olId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="goodId != null" >
+        #{goodId,jdbcType=BIGINT},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPrice != null" >
+        #{goodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodCount != null" >
+        #{goodCount,jdbcType=BIGINT},
+      </if>
+      <if test="goodMoney != null" >
+        #{goodMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="goodType != null" >
+        #{goodType,jdbcType=INTEGER},
+      </if>
+      <if test="goodOid != null" >
+        #{goodOid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sell.model.OrderList" >
+    update erp_order_list
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="goodId != null" >
+        good_id = #{goodId,jdbcType=BIGINT},
+      </if>
+      <if test="goodName != null" >
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPrice != null" >
+        good_price = #{goodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodCount != null" >
+        good_count = #{goodCount,jdbcType=BIGINT},
+      </if>
+      <if test="goodMoney != null" >
+        good_money = #{goodMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="goodType != null" >
+        good_type = #{goodType,jdbcType=INTEGER},
+      </if>
+      <if test="goodOid != null" >
+        good_oid = #{goodOid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ol_id = #{olId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.sell.model.OrderList" >
+    update erp_order_list
+    set order_id = #{orderId,jdbcType=BIGINT},
+      good_id = #{goodId,jdbcType=BIGINT},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      good_price = #{goodPrice,jdbcType=DECIMAL},
+      good_count = #{goodCount,jdbcType=BIGINT},
+      good_money = #{goodMoney,jdbcType=DECIMAL},
+      good_type = #{goodType,jdbcType=INTEGER},
+      good_oid = #{goodOid,jdbcType=BIGINT}
+    where ol_id = #{olId,jdbcType=BIGINT}
+  </update>
+</mapper>

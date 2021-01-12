@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.sell.mapper.OrderOutDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.sell.model.OrderOutDetails" >
+    <constructor >
+      <idArg column="oro_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="oro_good_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="oro_good_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="oro_good_price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="oro_good_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="oro_order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="oro_money" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="oro_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="o_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="warehouse_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    oro_id, oro_good_id, oro_good_name, oro_good_price, oro_good_count, oro_order_id, 
+    oro_money, oro_state, o_id, warehouse_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_order_out_details
+    where oro_id = #{oroId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_order_out_details
+    where oro_id = #{oroId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.sell.model.OrderOutDetails" >
+    insert into erp_order_out_details (oro_id, oro_good_id, oro_good_name, 
+      oro_good_price, oro_good_count, oro_order_id, 
+      oro_money, oro_state, o_id, 
+      warehouse_id)
+    values (#{oroId,jdbcType=BIGINT}, #{oroGoodId,jdbcType=BIGINT}, #{oroGoodName,jdbcType=VARCHAR}, 
+      #{oroGoodPrice,jdbcType=DECIMAL}, #{oroGoodCount,jdbcType=INTEGER}, #{oroOrderId,jdbcType=BIGINT}, 
+      #{oroMoney,jdbcType=DECIMAL}, #{oroState,jdbcType=INTEGER}, #{oId,jdbcType=BIGINT}, 
+      #{warehouseId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.sell.model.OrderOutDetails" >
+    insert into erp_order_out_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oroId != null" >
+        oro_id,
+      </if>
+      <if test="oroGoodId != null" >
+        oro_good_id,
+      </if>
+      <if test="oroGoodName != null" >
+        oro_good_name,
+      </if>
+      <if test="oroGoodPrice != null" >
+        oro_good_price,
+      </if>
+      <if test="oroGoodCount != null" >
+        oro_good_count,
+      </if>
+      <if test="oroOrderId != null" >
+        oro_order_id,
+      </if>
+      <if test="oroMoney != null" >
+        oro_money,
+      </if>
+      <if test="oroState != null" >
+        oro_state,
+      </if>
+      <if test="oId != null" >
+        o_id,
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oroId != null" >
+        #{oroId,jdbcType=BIGINT},
+      </if>
+      <if test="oroGoodId != null" >
+        #{oroGoodId,jdbcType=BIGINT},
+      </if>
+      <if test="oroGoodName != null" >
+        #{oroGoodName,jdbcType=VARCHAR},
+      </if>
+      <if test="oroGoodPrice != null" >
+        #{oroGoodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oroGoodCount != null" >
+        #{oroGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="oroOrderId != null" >
+        #{oroOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="oroMoney != null" >
+        #{oroMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="oroState != null" >
+        #{oroState,jdbcType=INTEGER},
+      </if>
+      <if test="oId != null" >
+        #{oId,jdbcType=BIGINT},
+      </if>
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sell.model.OrderOutDetails" >
+    update erp_order_out_details
+    <set >
+      <if test="oroGoodId != null" >
+        oro_good_id = #{oroGoodId,jdbcType=BIGINT},
+      </if>
+      <if test="oroGoodName != null" >
+        oro_good_name = #{oroGoodName,jdbcType=VARCHAR},
+      </if>
+      <if test="oroGoodPrice != null" >
+        oro_good_price = #{oroGoodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oroGoodCount != null" >
+        oro_good_count = #{oroGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="oroOrderId != null" >
+        oro_order_id = #{oroOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="oroMoney != null" >
+        oro_money = #{oroMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="oroState != null" >
+        oro_state = #{oroState,jdbcType=INTEGER},
+      </if>
+      <if test="oId != null" >
+        o_id = #{oId,jdbcType=BIGINT},
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id = #{warehouseId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where oro_id = #{oroId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.sell.model.OrderOutDetails" >
+    update erp_order_out_details
+    set oro_good_id = #{oroGoodId,jdbcType=BIGINT},
+      oro_good_name = #{oroGoodName,jdbcType=VARCHAR},
+      oro_good_price = #{oroGoodPrice,jdbcType=DECIMAL},
+      oro_good_count = #{oroGoodCount,jdbcType=INTEGER},
+      oro_order_id = #{oroOrderId,jdbcType=BIGINT},
+      oro_money = #{oroMoney,jdbcType=DECIMAL},
+      oro_state = #{oroState,jdbcType=INTEGER},
+      o_id = #{oId,jdbcType=BIGINT},
+      warehouse_id = #{warehouseId,jdbcType=BIGINT}
+    where oro_id = #{oroId,jdbcType=BIGINT}
+  </update>
+</mapper>

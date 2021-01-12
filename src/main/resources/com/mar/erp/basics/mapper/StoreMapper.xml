@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.basics.mapper.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.basics.model.Store" >
+    <constructor >
+      <idArg column="sr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="sr_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sr_addr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="e_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sr_id, sr_name, sr_addr, e_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_store
+    where sr_id = #{srId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_store
+    where sr_id = #{srId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.basics.model.Store" >
+    insert into erp_store (sr_id, sr_name, sr_addr, 
+      e_id)
+    values (#{srId,jdbcType=BIGINT}, #{srName,jdbcType=VARCHAR}, #{srAddr,jdbcType=VARCHAR}, 
+      #{eId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.basics.model.Store" >
+    insert into erp_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srId != null" >
+        sr_id,
+      </if>
+      <if test="srName != null" >
+        sr_name,
+      </if>
+      <if test="srAddr != null" >
+        sr_addr,
+      </if>
+      <if test="eId != null" >
+        e_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srId != null" >
+        #{srId,jdbcType=BIGINT},
+      </if>
+      <if test="srName != null" >
+        #{srName,jdbcType=VARCHAR},
+      </if>
+      <if test="srAddr != null" >
+        #{srAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null" >
+        #{eId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.basics.model.Store" >
+    update erp_store
+    <set >
+      <if test="srName != null" >
+        sr_name = #{srName,jdbcType=VARCHAR},
+      </if>
+      <if test="srAddr != null" >
+        sr_addr = #{srAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null" >
+        e_id = #{eId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where sr_id = #{srId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.basics.model.Store" >
+    update erp_store
+    set sr_name = #{srName,jdbcType=VARCHAR},
+      sr_addr = #{srAddr,jdbcType=VARCHAR},
+      e_id = #{eId,jdbcType=BIGINT}
+    where sr_id = #{srId,jdbcType=BIGINT}
+  </update>
+</mapper>

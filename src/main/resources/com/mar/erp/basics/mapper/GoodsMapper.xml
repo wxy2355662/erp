@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.basics.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.basics.model.Goods" >
+    <constructor >
+      <idArg column="g_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="g_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="g_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="g_producer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="g_unit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="g_inprice" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="g_outprice" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="t_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    g_id, g_name, g_address, g_producer, g_unit, g_inprice, g_outprice, t_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_goods
+    where g_id = #{gId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_goods
+    where g_id = #{gId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.basics.model.Goods" >
+    insert into erp_goods (g_id, g_name, g_address, 
+      g_producer, g_unit, g_inprice, 
+      g_outprice, t_id)
+    values (#{gId,jdbcType=BIGINT}, #{gName,jdbcType=VARCHAR}, #{gAddress,jdbcType=VARCHAR}, 
+      #{gProducer,jdbcType=VARCHAR}, #{gUnit,jdbcType=VARCHAR}, #{gInprice,jdbcType=DECIMAL}, 
+      #{gOutprice,jdbcType=DECIMAL}, #{tId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.basics.model.Goods" >
+    insert into erp_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="gName != null" >
+        g_name,
+      </if>
+      <if test="gAddress != null" >
+        g_address,
+      </if>
+      <if test="gProducer != null" >
+        g_producer,
+      </if>
+      <if test="gUnit != null" >
+        g_unit,
+      </if>
+      <if test="gInprice != null" >
+        g_inprice,
+      </if>
+      <if test="gOutprice != null" >
+        g_outprice,
+      </if>
+      <if test="tId != null" >
+        t_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="gName != null" >
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gAddress != null" >
+        #{gAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gProducer != null" >
+        #{gProducer,jdbcType=VARCHAR},
+      </if>
+      <if test="gUnit != null" >
+        #{gUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="gInprice != null" >
+        #{gInprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gOutprice != null" >
+        #{gOutprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tId != null" >
+        #{tId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.basics.model.Goods" >
+    update erp_goods
+    <set >
+      <if test="gName != null" >
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gAddress != null" >
+        g_address = #{gAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gProducer != null" >
+        g_producer = #{gProducer,jdbcType=VARCHAR},
+      </if>
+      <if test="gUnit != null" >
+        g_unit = #{gUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="gInprice != null" >
+        g_inprice = #{gInprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gOutprice != null" >
+        g_outprice = #{gOutprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tId != null" >
+        t_id = #{tId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where g_id = #{gId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.basics.model.Goods" >
+    update erp_goods
+    set g_name = #{gName,jdbcType=VARCHAR},
+      g_address = #{gAddress,jdbcType=VARCHAR},
+      g_producer = #{gProducer,jdbcType=VARCHAR},
+      g_unit = #{gUnit,jdbcType=VARCHAR},
+      g_inprice = #{gInprice,jdbcType=DECIMAL},
+      g_outprice = #{gOutprice,jdbcType=DECIMAL},
+      t_id = #{tId,jdbcType=BIGINT}
+    where g_id = #{gId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.basics.mapper.CurstrumerMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.basics.model.Curstrumer" >
+    <constructor >
+      <idArg column="c_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_contact" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_tele" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_emal" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_rmd" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_address, c_contact, c_tele, c_emal, c_rmd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_curstrumer
+    where c_id = #{cId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_curstrumer
+    where c_id = #{cId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.basics.model.Curstrumer" >
+    insert into erp_curstrumer (c_id, c_name, c_address, 
+      c_contact, c_tele, c_emal, 
+      c_rmd)
+    values (#{cId,jdbcType=BIGINT}, #{cName,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}, 
+      #{cContact,jdbcType=VARCHAR}, #{cTele,jdbcType=VARCHAR}, #{cEmal,jdbcType=VARCHAR}, 
+      #{cRmd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.basics.model.Curstrumer" >
+    insert into erp_curstrumer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cAddress != null" >
+        c_address,
+      </if>
+      <if test="cContact != null" >
+        c_contact,
+      </if>
+      <if test="cTele != null" >
+        c_tele,
+      </if>
+      <if test="cEmal != null" >
+        c_emal,
+      </if>
+      <if test="cRmd != null" >
+        c_rmd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=BIGINT},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cContact != null" >
+        #{cContact,jdbcType=VARCHAR},
+      </if>
+      <if test="cTele != null" >
+        #{cTele,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmal != null" >
+        #{cEmal,jdbcType=VARCHAR},
+      </if>
+      <if test="cRmd != null" >
+        #{cRmd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.basics.model.Curstrumer" >
+    update erp_curstrumer
+    <set >
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cContact != null" >
+        c_contact = #{cContact,jdbcType=VARCHAR},
+      </if>
+      <if test="cTele != null" >
+        c_tele = #{cTele,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmal != null" >
+        c_emal = #{cEmal,jdbcType=VARCHAR},
+      </if>
+      <if test="cRmd != null" >
+        c_rmd = #{cRmd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.basics.model.Curstrumer" >
+    update erp_curstrumer
+    set c_name = #{cName,jdbcType=VARCHAR},
+      c_address = #{cAddress,jdbcType=VARCHAR},
+      c_contact = #{cContact,jdbcType=VARCHAR},
+      c_tele = #{cTele,jdbcType=VARCHAR},
+      c_emal = #{cEmal,jdbcType=VARCHAR},
+      c_rmd = #{cRmd,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=BIGINT}
+  </update>
+</mapper>

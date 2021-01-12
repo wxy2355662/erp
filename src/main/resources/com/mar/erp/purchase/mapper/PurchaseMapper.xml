@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.purchase.mapper.PurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.purchase.model.Purchase" >
+    <constructor >
+      <idArg column="p_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="p_createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="p_crecker" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="p_supplieruuid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="p_totalmoney" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="p_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="p_waybill" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, p_createtime, p_crecker, p_supplieruuid, p_totalmoney, p_state, p_waybill
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_purchase
+    where p_id = #{pId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_purchase
+    where p_id = #{pId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.purchase.model.Purchase" >
+    insert into erp_purchase (p_id, p_createtime, p_crecker, 
+      p_supplieruuid, p_totalmoney, p_state, 
+      p_waybill)
+    values (#{pId,jdbcType=BIGINT}, #{pCreatetime,jdbcType=TIMESTAMP}, #{pCrecker,jdbcType=VARCHAR}, 
+      #{pSupplieruuid,jdbcType=VARCHAR}, #{pTotalmoney,jdbcType=DECIMAL}, #{pState,jdbcType=INTEGER}, 
+      #{pWaybill,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.Purchase" >
+    insert into erp_purchase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pCreatetime != null" >
+        p_createtime,
+      </if>
+      <if test="pCrecker != null" >
+        p_crecker,
+      </if>
+      <if test="pSupplieruuid != null" >
+        p_supplieruuid,
+      </if>
+      <if test="pTotalmoney != null" >
+        p_totalmoney,
+      </if>
+      <if test="pState != null" >
+        p_state,
+      </if>
+      <if test="pWaybill != null" >
+        p_waybill,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="pCreatetime != null" >
+        #{pCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pCrecker != null" >
+        #{pCrecker,jdbcType=VARCHAR},
+      </if>
+      <if test="pSupplieruuid != null" >
+        #{pSupplieruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pTotalmoney != null" >
+        #{pTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pState != null" >
+        #{pState,jdbcType=INTEGER},
+      </if>
+      <if test="pWaybill != null" >
+        #{pWaybill,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.purchase.model.Purchase" >
+    update erp_purchase
+    <set >
+      <if test="pCreatetime != null" >
+        p_createtime = #{pCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pCrecker != null" >
+        p_crecker = #{pCrecker,jdbcType=VARCHAR},
+      </if>
+      <if test="pSupplieruuid != null" >
+        p_supplieruuid = #{pSupplieruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pTotalmoney != null" >
+        p_totalmoney = #{pTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pState != null" >
+        p_state = #{pState,jdbcType=INTEGER},
+      </if>
+      <if test="pWaybill != null" >
+        p_waybill = #{pWaybill,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.purchase.model.Purchase" >
+    update erp_purchase
+    set p_createtime = #{pCreatetime,jdbcType=TIMESTAMP},
+      p_crecker = #{pCrecker,jdbcType=VARCHAR},
+      p_supplieruuid = #{pSupplieruuid,jdbcType=VARCHAR},
+      p_totalmoney = #{pTotalmoney,jdbcType=DECIMAL},
+      p_state = #{pState,jdbcType=INTEGER},
+      p_waybill = #{pWaybill,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=BIGINT}
+  </update>
+</mapper>

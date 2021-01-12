@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.sys.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.sys.model.Permission" >
+    <constructor >
+      <idArg column="per_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="per_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="permission" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    per_id, per_name, pid, permission,icon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_permission
+    where per_id = #{perId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="queryPrimaryByParent" resultType="com.mar.erp.sys.vo.PermissionVo">
+    SELECT <include refid="Base_Column_List" /> FROM erp_permission where pid=-1 ORDER BY per_id
+  </select>
+  <select id="queryPrimaryByPid" resultType="com.mar.erp.sys.model.Permission">
+    SELECT <include refid="Base_Column_List" /> FROM erp_permission where pid=#{pid} ORDER BY per_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from erp_permission
+    where per_id = #{perId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.sys.model.Permission" >
+    insert into erp_permission (per_id, per_name, pid, 
+      permission)
+    values (#{perId,jdbcType=INTEGER}, #{perName,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{permission,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.sys.model.Permission" >
+    insert into erp_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perId != null" >
+        per_id,
+      </if>
+      <if test="perName != null" >
+        per_name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perId != null" >
+        #{perId,jdbcType=INTEGER},
+      </if>
+      <if test="perName != null" >
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sys.model.Permission" >
+    update erp_permission
+    <set >
+      <if test="perName != null" >
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.sys.model.Permission" >
+    update erp_permission
+    set per_name = #{perName,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      permission = #{permission,jdbcType=VARCHAR}
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+</mapper>

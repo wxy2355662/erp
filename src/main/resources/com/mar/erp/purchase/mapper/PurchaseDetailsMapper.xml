@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.purchase.mapper.PurchaseDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.purchase.model.PurchaseDetails" >
+    <constructor >
+      <idArg column="pi_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pi_good_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pi_good_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pi_price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="pi_num" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pi_moery" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="pi_state" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pi_oid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pi_rid" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pi_id, pi_good_id, pi_good_name, pi_price, pi_num, pi_moery, pi_state, pi_oid, pi_rid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from "erp_purchase_ details"
+    where pi_id = #{piId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from "erp_purchase_ details"
+    where pi_id = #{piId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+    insert into "erp_purchase_ details" (pi_id, pi_good_id, pi_good_name, 
+      pi_price, pi_num, pi_moery, 
+      pi_state, pi_oid, pi_rid)
+    values (#{piId,jdbcType=BIGINT}, #{piGoodId,jdbcType=BIGINT}, #{piGoodName,jdbcType=VARCHAR}, 
+      #{piPrice,jdbcType=DECIMAL}, #{piNum,jdbcType=BIGINT}, #{piMoery,jdbcType=DECIMAL}, 
+      #{piState,jdbcType=BIGINT}, #{piOid,jdbcType=BIGINT}, #{piRid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+    insert into "erp_purchase_ details"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="piId != null" >
+        pi_id,
+      </if>
+      <if test="piGoodId != null" >
+        pi_good_id,
+      </if>
+      <if test="piGoodName != null" >
+        pi_good_name,
+      </if>
+      <if test="piPrice != null" >
+        pi_price,
+      </if>
+      <if test="piNum != null" >
+        pi_num,
+      </if>
+      <if test="piMoery != null" >
+        pi_moery,
+      </if>
+      <if test="piState != null" >
+        pi_state,
+      </if>
+      <if test="piOid != null" >
+        pi_oid,
+      </if>
+      <if test="piRid != null" >
+        pi_rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="piId != null" >
+        #{piId,jdbcType=BIGINT},
+      </if>
+      <if test="piGoodId != null" >
+        #{piGoodId,jdbcType=BIGINT},
+      </if>
+      <if test="piGoodName != null" >
+        #{piGoodName,jdbcType=VARCHAR},
+      </if>
+      <if test="piPrice != null" >
+        #{piPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="piNum != null" >
+        #{piNum,jdbcType=BIGINT},
+      </if>
+      <if test="piMoery != null" >
+        #{piMoery,jdbcType=DECIMAL},
+      </if>
+      <if test="piState != null" >
+        #{piState,jdbcType=BIGINT},
+      </if>
+      <if test="piOid != null" >
+        #{piOid,jdbcType=BIGINT},
+      </if>
+      <if test="piRid != null" >
+        #{piRid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+    update "erp_purchase_ details"
+    <set >
+      <if test="piGoodId != null" >
+        pi_good_id = #{piGoodId,jdbcType=BIGINT},
+      </if>
+      <if test="piGoodName != null" >
+        pi_good_name = #{piGoodName,jdbcType=VARCHAR},
+      </if>
+      <if test="piPrice != null" >
+        pi_price = #{piPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="piNum != null" >
+        pi_num = #{piNum,jdbcType=BIGINT},
+      </if>
+      <if test="piMoery != null" >
+        pi_moery = #{piMoery,jdbcType=DECIMAL},
+      </if>
+      <if test="piState != null" >
+        pi_state = #{piState,jdbcType=BIGINT},
+      </if>
+      <if test="piOid != null" >
+        pi_oid = #{piOid,jdbcType=BIGINT},
+      </if>
+      <if test="piRid != null" >
+        pi_rid = #{piRid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pi_id = #{piId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+    update "erp_purchase_ details"
+    set pi_good_id = #{piGoodId,jdbcType=BIGINT},
+      pi_good_name = #{piGoodName,jdbcType=VARCHAR},
+      pi_price = #{piPrice,jdbcType=DECIMAL},
+      pi_num = #{piNum,jdbcType=BIGINT},
+      pi_moery = #{piMoery,jdbcType=DECIMAL},
+      pi_state = #{piState,jdbcType=BIGINT},
+      pi_oid = #{piOid,jdbcType=BIGINT},
+      pi_rid = #{piRid,jdbcType=BIGINT}
+    where pi_id = #{piId,jdbcType=BIGINT}
+  </update>
+</mapper>

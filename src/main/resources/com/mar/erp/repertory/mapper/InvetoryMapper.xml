@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.repertory.mapper.InvetoryMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.repertory.model.Invetory" >
+    <constructor >
+      <idArg column="i_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="g_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="st_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="i_num" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="i_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    i_id, g_id, st_id, i_num, i_type, i_status, i_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_invetory
+    where i_id = #{iId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_invetory
+    where i_id = #{iId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.repertory.model.Invetory" >
+    insert into erp_invetory (i_id, g_id, st_id, 
+      i_num, i_type, i_status, 
+      i_remark)
+    values (#{iId,jdbcType=BIGINT}, #{gId,jdbcType=BIGINT}, #{stId,jdbcType=BIGINT}, 
+      #{iNum,jdbcType=BIGINT}, #{iType,jdbcType=VARCHAR}, #{iStatus,jdbcType=VARCHAR}, 
+      #{iRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.repertory.model.Invetory" >
+    insert into erp_invetory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="stId != null" >
+        st_id,
+      </if>
+      <if test="iNum != null" >
+        i_num,
+      </if>
+      <if test="iType != null" >
+        i_type,
+      </if>
+      <if test="iStatus != null" >
+        i_status,
+      </if>
+      <if test="iRemark != null" >
+        i_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="stId != null" >
+        #{stId,jdbcType=BIGINT},
+      </if>
+      <if test="iNum != null" >
+        #{iNum,jdbcType=BIGINT},
+      </if>
+      <if test="iType != null" >
+        #{iType,jdbcType=VARCHAR},
+      </if>
+      <if test="iStatus != null" >
+        #{iStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="iRemark != null" >
+        #{iRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.repertory.model.Invetory" >
+    update erp_invetory
+    <set >
+      <if test="gId != null" >
+        g_id = #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="stId != null" >
+        st_id = #{stId,jdbcType=BIGINT},
+      </if>
+      <if test="iNum != null" >
+        i_num = #{iNum,jdbcType=BIGINT},
+      </if>
+      <if test="iType != null" >
+        i_type = #{iType,jdbcType=VARCHAR},
+      </if>
+      <if test="iStatus != null" >
+        i_status = #{iStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="iRemark != null" >
+        i_remark = #{iRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.repertory.model.Invetory" >
+    update erp_invetory
+    set g_id = #{gId,jdbcType=BIGINT},
+      st_id = #{stId,jdbcType=BIGINT},
+      i_num = #{iNum,jdbcType=BIGINT},
+      i_type = #{iType,jdbcType=VARCHAR},
+      i_status = #{iStatus,jdbcType=VARCHAR},
+      i_remark = #{iRemark,jdbcType=VARCHAR}
+    where i_id = #{iId,jdbcType=BIGINT}
+  </update>
+</mapper>

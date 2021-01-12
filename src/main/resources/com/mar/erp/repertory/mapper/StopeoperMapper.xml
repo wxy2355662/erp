@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mar.erp.repertory.mapper.StopeoperMapper" >
+  <resultMap id="BaseResultMap" type="com.mar.erp.repertory.model.Stopeoper" >
+    <constructor >
+      <idArg column="st_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="e_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="st_opertime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="sr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="g_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="st_num" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="st_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    st_id, e_id, st_opertime, sr_id, g_id, st_num, st_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from erp_stopeoper
+    where st_id = #{stId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from erp_stopeoper
+    where st_id = #{stId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mar.erp.repertory.model.Stopeoper" >
+    insert into erp_stopeoper (st_id, e_id, st_opertime, 
+      sr_id, g_id, st_num, st_type
+      )
+    values (#{stId,jdbcType=BIGINT}, #{eId,jdbcType=BIGINT}, #{stOpertime,jdbcType=TIMESTAMP}, 
+      #{srId,jdbcType=BIGINT}, #{gId,jdbcType=BIGINT}, #{stNum,jdbcType=BIGINT}, #{stType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mar.erp.repertory.model.Stopeoper" >
+    insert into erp_stopeoper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        st_id,
+      </if>
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="stOpertime != null" >
+        st_opertime,
+      </if>
+      <if test="srId != null" >
+        sr_id,
+      </if>
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="stNum != null" >
+        st_num,
+      </if>
+      <if test="stType != null" >
+        st_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        #{stId,jdbcType=BIGINT},
+      </if>
+      <if test="eId != null" >
+        #{eId,jdbcType=BIGINT},
+      </if>
+      <if test="stOpertime != null" >
+        #{stOpertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srId != null" >
+        #{srId,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="stNum != null" >
+        #{stNum,jdbcType=BIGINT},
+      </if>
+      <if test="stType != null" >
+        #{stType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.repertory.model.Stopeoper" >
+    update erp_stopeoper
+    <set >
+      <if test="eId != null" >
+        e_id = #{eId,jdbcType=BIGINT},
+      </if>
+      <if test="stOpertime != null" >
+        st_opertime = #{stOpertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srId != null" >
+        sr_id = #{srId,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        g_id = #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="stNum != null" >
+        st_num = #{stNum,jdbcType=BIGINT},
+      </if>
+      <if test="stType != null" >
+        st_type = #{stType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where st_id = #{stId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mar.erp.repertory.model.Stopeoper" >
+    update erp_stopeoper
+    set e_id = #{eId,jdbcType=BIGINT},
+      st_opertime = #{stOpertime,jdbcType=TIMESTAMP},
+      sr_id = #{srId,jdbcType=BIGINT},
+      g_id = #{gId,jdbcType=BIGINT},
+      st_num = #{stNum,jdbcType=BIGINT},
+      st_type = #{stType,jdbcType=VARCHAR}
+    where st_id = #{stId,jdbcType=BIGINT}
+  </update>
+</mapper>
