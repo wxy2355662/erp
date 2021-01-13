@@ -1,10 +1,13 @@
 package com.mar.erp.purchase.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Purchase {
     private Long pId;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date pCreatetime;
 
     private String pCrecker;
