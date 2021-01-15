@@ -10,16 +10,16 @@
         <!--注意：重要的事情说三次~~~~~~此处加密方式要与用户注册时的算法一致 -->
         <!--注意：重要的事情说三次~~~~~~此处加密方式要与用户注册时的算法一致 -->
         <!--以下三个配置告诉shiro将如何对用户传来的明文密码进行加密-->
-        <property name="credentialsMatcher">
-            <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-                <!--指定hash算法为MD5-->
-                <property name="hashAlgorithmName" value="md5"/>
-                <!--指定散列次数为1024次-->
-                <property name="hashIterations" value="1024"/>
-                <!--true指定Hash散列值使用Hex加密存. false表明hash散列值用用Base64-encoded存储-->
-                <property name="storedCredentialsHexEncoded" value="true"/>
-            </bean>
-        </property>
+<!--        <property name="credentialsMatcher">-->
+<!--            <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">-->
+<!--                &lt;!&ndash;指定hash算法为MD5&ndash;&gt;-->
+<!--                <property name="hashAlgorithmName" value="md5"/>-->
+<!--                &lt;!&ndash;指定散列次数为1024次&ndash;&gt;-->
+<!--                <property name="hashIterations" value="1024"/>-->
+<!--                &lt;!&ndash;true指定Hash散列值使用Hex加密存. false表明hash散列值用用Base64-encoded存储&ndash;&gt;-->
+<!--                <property name="storedCredentialsHexEncoded" value="true"/>-->
+<!--            </bean>-->
+<!--        </property>-->
     </bean>
 
     <!--2.配置安全管理器SecurityManager-->
