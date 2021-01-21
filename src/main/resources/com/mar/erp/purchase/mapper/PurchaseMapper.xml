@@ -21,10 +21,54 @@
     from erp_purchase
     where p_id = #{pId,jdbcType=BIGINT}
   </select>
+
+    <select id="queryPurchasePager" resultType="com.mar.erp.purchase.vo.PurchaseVo">
+    select <include refid="Base_Column_List"/> from erp_purchase where 1=1
+     <if test="null!=pCrecker and ''!=pCrecker">
+            and p_crecker like concat('%',#{pCrecker},'%')
+     </if>
+      <if test="null!=pState and ''!=pState">
+        and p_state like concat('%',#{pState},'%')
+      </if>
+      <if test="null!=min and ''!=min">
+            and p_createtime &gt;= #{min}
+      </if>
+      <if test="null!=max and ''!=max">
+         and p_createtime &lt;= #{max}
+     </if>
+        order by p_id desc
+    </select>
+
+  <select id="queryPurchasePager1" resultType="com.mar.erp.purchase.model.Purchase">
+    select <include refid="Base_Column_List"/> from erp_purchase where p_state=1
+    <if test="null!=pCrecker and ''!=pCrecker">
+      and p_crecker like concat('%',#{pCrecker},'%')
+    </if>
+    order by p_id desc
+  </select>
+
+  <select id="queryPurchasePager2" resultType="com.mar.erp.purchase.vo.PurchaseVo">
+    select <include refid="Base_Column_List"/> from erp_purchase where p_state=2
+    <if test="null!=pCrecker and ''!=pCrecker">
+      and p_crecker like concat('%',#{pCrecker},'%')
+    </if>
+    order by p_id desc
+  </select>
+
+  <select id="queryPurchaseCPager" resultType="com.mar.erp.purchase.vo.PurchaseVo">
+    select <include refid="Base_Column_List"/> from erp_purchase where p_state=3
+    <if test="null!=pCrecker and ''!=pCrecker">
+      and p_crecker like concat('%',#{pCrecker},'%')
+    </if>
+    order by p_id desc
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_purchase
     where p_id = #{pId,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="com.mar.erp.purchase.model.Purchase" >
     insert into erp_purchase (p_id, p_createtime, p_crecker, 
       p_supplieruuid, p_totalmoney, p_state, 
@@ -33,7 +77,8 @@
       #{pSupplieruuid,jdbcType=VARCHAR}, #{pTotalmoney,jdbcType=DECIMAL}, #{pState,jdbcType=INTEGER}, 
       #{pWaybill,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.Purchase" >
+
+  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.Purchase" keyProperty="pId" useGeneratedKeys="true">
     insert into erp_purchase
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="pId != null" >
@@ -116,4 +161,12 @@
       p_waybill = #{pWaybill,jdbcType=VARCHAR}
     where p_id = #{pId,jdbcType=BIGINT}
   </update>
+
+  <update id="updateByPurchase">
+    update erp_purchase set
+      p_state = #{pState,jdbcType=INTEGER}
+    where p_id = #{pId,jdbcType=BIGINT}
+  </update>
+
+
 </mapper>

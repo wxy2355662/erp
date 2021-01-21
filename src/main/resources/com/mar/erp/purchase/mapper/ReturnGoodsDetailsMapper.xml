@@ -23,6 +23,15 @@
     from erp_return_goods_details
     where rg_id = #{rgId,jdbcType=BIGINT}
   </select>
+
+    <select id="selectDetailsDoods" resultType="com.mar.erp.purchase.model.ReturnGoodsDetails">
+        select <include refid="Base_Column_List"/> from  erp_return_goods_details where rg_oid=#{rgOid}
+    </select>
+
+  <select id="selectReGoodsDetails" resultType="com.mar.erp.purchase.model.ReturnGoodsDetails">
+    select <include refid="Base_Column_List"/> from  erp_return_goods_details where p_id=#{pId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_return_goods_details
     where rg_id = #{rgId,jdbcType=BIGINT}
