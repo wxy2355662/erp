@@ -277,29 +277,6 @@
       <version>${jackson.version}</version>
     </dependency>
 
-  <!--shiro授权切面AOP依赖-->
-
-<!--    <dependency>-->
-<!--      <groupId>org.aspectj</groupId>-->
-<!--      <artifactId>aspectjweaver</artifactId>-->
-<!--      <version>1.9.5</version>-->
-<!--    </dependency>-->
-
-
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/cglib/cglib &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>cglib</groupId>-->
-<!--      <artifactId>cglib</artifactId>-->
-<!--      <version>3.3.0</version>-->
-<!--    </dependency>-->
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-aop</artifactId>-->
-<!--      <version>2.1.11.RELEASE</version>-->
-<!--    </dependency>-->
-
-
     <!-- ********************** JSTL依赖 ********************** -->
     <!-- 缺少下面的这两个jar包会报java.lang.NoClassDefFoundError: javax/servlet/jsp/jstl/core/Config-->
     <!-- 原因：org.springframework.web.servlet.view.JstlView在视图解析时需要这二个jar包-->
@@ -346,6 +323,7 @@
       <artifactId>shiro-spring</artifactId>
       <version>${shiro.version}</version>
     </dependency>
+
 
     <!--邮件发送依赖-->
     <dependency>
