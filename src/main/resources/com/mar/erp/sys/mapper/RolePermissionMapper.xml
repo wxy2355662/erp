@@ -17,14 +17,20 @@
     from erp_role_permission
     where rp_id = #{rpId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="queryRoleByquanx" resultType="java.lang.Integer">
+      select rp.role_id from erp_role_permission rp inner join  erp_permission p  on rp.per_id=p.per_id where p. per_name="保存权限"   or p. per_name="查询角色"   group by rp.role_id having count(rp.role_id)=2
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from erp_role_permission
     where rp_id = #{rpId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteRoleByRoleId">
+    delete from erp_role_permission where role_id = #{roleId}
+  </delete>
   <insert id="insert" parameterType="com.mar.erp.sys.model.RolePermission" >
-    insert into erp_role_permission (rp_id, role_id, per_id
+    insert into erp_role_permission ( role_id, per_id
       )
-    values (#{rpId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{perId,jdbcType=INTEGER}
+    values ( #{roleId,jdbcType=INTEGER}, #{perId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.mar.erp.sys.model.RolePermission" >
@@ -51,6 +57,12 @@
         #{perId,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  <insert id="addPerIdByRolePer">
+    insert into erp_role_permission(role_id,per_id) values
+    <foreach collection="perIds"  separator="," item="perId">
+      (#{roleId},#{perId})
+    </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sys.model.RolePermission" >
     update erp_role_permission

@@ -17,26 +17,35 @@
   <sql id="Base_Column_List" >
     pi_id, pi_good_id, pi_good_name, pi_price, pi_num, pi_moery, pi_state, pi_oid, pi_rid
   </sql>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from "erp_purchase_ details"
+    from `erp_purchase_ details`
     where pi_id = #{piId,jdbcType=BIGINT}
   </select>
+
+  <select id="queryPuerDetails" resultType="com.mar.erp.purchase.model.PurchaseDetails">
+    select <include refid="Base_Column_List"/> from `erp_purchase_ details` where pi_oid=#{piOid}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from "erp_purchase_ details"
+    delete from `erp_purchase_ details`
     where pi_id = #{piId,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
-    insert into "erp_purchase_ details" (pi_id, pi_good_id, pi_good_name, 
+    insert into `erp_purchase_ details` (pi_id, pi_good_id, pi_good_name,
       pi_price, pi_num, pi_moery, 
       pi_state, pi_oid, pi_rid)
     values (#{piId,jdbcType=BIGINT}, #{piGoodId,jdbcType=BIGINT}, #{piGoodName,jdbcType=VARCHAR}, 
       #{piPrice,jdbcType=DECIMAL}, #{piNum,jdbcType=BIGINT}, #{piMoery,jdbcType=DECIMAL}, 
       #{piState,jdbcType=BIGINT}, #{piOid,jdbcType=BIGINT}, #{piRid,jdbcType=BIGINT})
   </insert>
+
   <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
-    insert into "erp_purchase_ details"
+    insert into `erp_purchase_ details`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="piId != null" >
         pi_id,
@@ -96,8 +105,43 @@
       </if>
     </trim>
   </insert>
+
+
+  <insert id="insertPurchaseDetails" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+
+    insert into `erp_purchase_ details` (pi_id,pi_good_id,pi_good_name,pi_price,pi_num,pi_moery,pi_state,pi_oid) values
+    <foreach collection="purchaseDetailList" item="PurchaseDetail" separator=",">
+    (
+    #{PurchaseDetail.piId},
+    #{PurchaseDetail.piGoodId},
+    #{PurchaseDetail.piGoodName},
+    #{PurchaseDetail.piPrice},
+    #{PurchaseDetail.piNum},
+    #{PurchaseDetail.piMoery},
+    '1',
+    #{piOid}
+    )
+    </foreach>
+  </insert>
+  <insert id="insertTousdsDetails" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
+    insert into `erp_purchase_ details` (pi_id,pi_good_id,pi_good_name,pi_price,pi_num,pi_moery,pi_state,pi_oid) values
+    <foreach collection="purchaseDetailList" item="PurchaseDetail" separator=",">
+    (
+    #{PurchaseDetail.piId},
+    #{PurchaseDetail.piGoodId},
+    #{PurchaseDetail.piGoodName},
+    #{PurchaseDetail.piPrice},
+    #{PurchaseDetail.piNum},
+    #{PurchaseDetail.piMoery},
+    '3',
+    #{piOid}
+    )
+    </foreach>
+  </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
-    update "erp_purchase_ details"
+    update `erp_purchase_ details`
     <set >
       <if test="piGoodId != null" >
         pi_good_id = #{piGoodId,jdbcType=BIGINT},
@@ -127,7 +171,7 @@
     where pi_id = #{piId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mar.erp.purchase.model.PurchaseDetails" >
-    update "erp_purchase_ details"
+    update `erp_purchase_ details`
     set pi_good_id = #{piGoodId,jdbcType=BIGINT},
       pi_good_name = #{piGoodName,jdbcType=VARCHAR},
       pi_price = #{piPrice,jdbcType=DECIMAL},

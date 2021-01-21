@@ -12,6 +12,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mar.erp.base.exception.BusinessException;
+import com.mar.erp.base.util.ResponseStatus;
 import io.jsonwebtoken.Claims;
 
 /**
@@ -28,7 +31,7 @@ public class JwtFilter implements Filter {
 	private static String EXCLUDE = "^/ataff/userLogin||/ataff/verifyByIp$";
 	private static Pattern PATTERN = Pattern.compile(EXCLUDE);
 
-	private boolean OFF = false;// true关闭jwt令牌验证功能
+	private boolean OFF = true;// true关闭jwt令牌验证功能
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -58,7 +61,7 @@ public class JwtFilter implements Filter {
 		Boolean flag=false;
 		if (null == claims) {
 			resp.sendError(403, "JWT令牌已过期或已失效");
-//			throw new BusinessException(ResponseStatus.STATUS_606);
+			//throw new BusinessException(ResponseStatus.STATUS_606);
 			return;
 		} else {
 			String newJwt = JwtUtils.copyJwt(jwt, JwtUtils.JWT_WEB_TTL);

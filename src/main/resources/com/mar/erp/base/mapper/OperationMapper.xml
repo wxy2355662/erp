@@ -21,7 +21,14 @@
     from erp_operation
     where c_id = #{cId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+
+    <select id="queryOpertion" resultType="com.mar.erp.base.model.Operation">
+        select * from erp_operation where c_pid=#{cPid}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_operation
     where c_id = #{cId,jdbcType=BIGINT}
   </delete>

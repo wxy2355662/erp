@@ -8,13 +8,13 @@ import java.util.List;
 
 public class PermissionVo extends Permission {
 
-    private List<Permission> permissionList=new ArrayList<>();
+    private List<PermissionVo> permissionList=new ArrayList<>();
 
-    public List<Permission> getPermissionList() {
+    public List<PermissionVo> getPermissionList() {
         return permissionList;
     }
 
-    public void setPermissionList(List<Permission> permissionList) {
+    public void setPermissionList(List<PermissionVo> permissionList) {
         this.permissionList = permissionList;
     }
 }

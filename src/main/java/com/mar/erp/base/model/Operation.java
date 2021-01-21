@@ -1,5 +1,8 @@
 package com.mar.erp.base.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Operation {
@@ -13,6 +16,8 @@ public class Operation {
 
     private Long cPid;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date cTime;
 
     private String cType;

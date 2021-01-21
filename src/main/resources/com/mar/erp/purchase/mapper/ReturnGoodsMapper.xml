@@ -23,7 +23,54 @@
     from erp_return_goods
     where r_id = #{rId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    <select id="selectGoodsPager" resultType="com.mar.erp.purchase.vo.ReturnGoodsVo">
+      select <include refid="Base_Column_List"/> from erp_return_goods where 1=1
+      <if test="null!=rCrecker and ''!=rCrecker">
+        and r_crecker like concat('%',#{rCrecker},'%')
+      </if>
+      <if test="null!=min and ''!=min">
+        and r_createtime &gt;= #{min}
+      </if>
+      <if test="null!=max and ''!=max">
+        and r_createtime &lt;= #{max}
+      </if>
+      order by p_id desc
+    </select>
+
+  <select id="selectGoodsAPager" resultType="com.mar.erp.purchase.vo.ReturnGoodsVo">
+    select <include refid="Base_Column_List"/> from erp_return_goods where r_state=1
+    <if test="null!=rCrecker and ''!=rCrecker">
+      and r_crecker like concat('%',#{rCrecker},'%')
+    </if>
+    <if test="null!=min and ''!=min">
+      and r_createtime &gt;= #{min}
+    </if>
+    <if test="null!=max and ''!=max">
+      and r_createtime &lt;= #{max}
+    </if>
+    order by p_id desc
+  </select>
+
+  <select id="selectGoodsBPager" resultType="com.mar.erp.purchase.vo.ReturnGoodsVo">
+    select <include refid="Base_Column_List"/> from erp_return_goods where r_state=2
+    <if test="null!=rCrecker and ''!=rCrecker">
+      and r_crecker like concat('%',#{rCrecker},'%')
+    </if>
+    <if test="null!=min and ''!=min">
+      and r_createtime &gt;= #{min}
+    </if>
+    <if test="null!=max and ''!=max">
+      and r_createtime &lt;= #{max}
+    </if>
+    order by p_id desc
+  </select>
+
+    <select id="selectReturnGoods" resultType="com.mar.erp.purchase.model.ReturnGoods">
+        select <include refid="Base_Column_List"/> from  erp_return_goods where p_id=#{pId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_return_goods
     where r_id = #{rId,jdbcType=BIGINT}
   </delete>
@@ -35,7 +82,7 @@
       #{rSupplieruuid,jdbcType=BIGINT}, #{rTotalmoney,jdbcType=DECIMAL}, #{rState,jdbcType=INTEGER}, 
       #{pWaybill,jdbcType=VARCHAR}, #{pId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.ReturnGoods" >
+  <insert id="insertSelective" parameterType="com.mar.erp.purchase.model.ReturnGoods"  keyProperty="rId" useGeneratedKeys="true">
     insert into erp_return_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="rId != null" >

@@ -29,23 +29,18 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        //获取登录用户的username
-//        String username = principalCollection.getPrimaryPrincipal().toString();
-//
-//        //根据username获取用户的角色
-//        Set<String> roles = sysUserServlet.findRoles(username);
-//
-//        //根据username获取用户的权限
-//        Set<String> permissions = sysUserServlet.findPermissions(username);
-//
-//        //创建SimpleAuthorizationInfo
-//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-//        simpleAuthorizationInfo.setRoles(roles);
-//        simpleAuthorizationInfo.setStringPermissions(permissions);
-//
-//
-//        return simpleAuthorizationInfo;
-        return null;
+       //获取登录用户的username
+        String username = principalCollection.getPrimaryPrincipal().toString();
+
+        Set<String> roles = ataffService.findRole(username);
+        Set<String> permissions = ataffService.findPermissions(username);
+        //创建SimpleAuthorizationInfo
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.setRoles(roles);
+        simpleAuthorizationInfo.setStringPermissions(permissions);
+
+        return simpleAuthorizationInfo;
+
     }
 
     /**
@@ -58,7 +53,6 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 //       //获取登录的账号和密码信息
         String username = authenticationToken.getPrincipal().toString();
-        String password = authenticationToken.getCredentials().toString();
 
 //        //根据账号实现登录验证
         Ataff ataff = ataffService.queryByLogin(username);

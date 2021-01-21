@@ -60,15 +60,17 @@ public class CorsFilter implements Filter {
 		// Access-Control-Allow-Origin就是我们需要设置的域名
 		// Access-Control-Allow-Headers跨域允许包含的头。
 		// Access-Control-Allow-Methods是允许的请求方式
-		resp.setHeader("Access-Control-Allow-Origin", "*");// *,任何域名
-		resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+		resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8088");// *,任何域名
+		resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE,OPTIONS");
 		// resp.setHeader("Access-Control-Allow-Headers", "Origin,X-Requested-With,
 		// Content-Type, Accept");
 		// 允许客户端，发一个新的请求头jwt
 		resp.setHeader("Access-Control-Allow-Headers", "Origin,X-Requested-With, Content-Type, Accept, jwt");
-
+//		resp.setHeader("Access-Control-Allow-Credentials", "true");
+		resp.setHeader("Access-Control-Allow-Credentials", "true");
 		// 允许客户端，处理一个新的响应头jwt
 		resp.setHeader("Access-Control-Expose-Headers", "jwt");
+
 		// String sss = resp.getHeader("Access-Control-Expose-Headers");
 		// System.out.println("sss=" + sss);
 

@@ -18,6 +18,12 @@
     from erp_storedetail
     where sd_id = #{sdId,jdbcType=BIGINT}
   </select>
+
+  <select id="selectStoredetail" resultType="com.mar.erp.repertory.vo.StoredetailVo">
+    select <include refid="Base_Column_List"/> from erp_storedetail where sr_id=#{srId} and g_id=#{gId}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_storedetail
     where sd_id = #{sdId,jdbcType=BIGINT}

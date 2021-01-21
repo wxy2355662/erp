@@ -45,6 +45,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- JwtFilter -->
+    <filter>
+        <filter-name>jwtFilter</filter-name>
+        <filter-class>com.mar.erp.base.jwt.JwtFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>jwtFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- shiro过滤器定义 -->
     <filter>
         <filter-name>shiroFilter</filter-name>
@@ -61,19 +71,34 @@
     </filter-mapping>
 
 
-    <!-- Spring MVC servlet -->
     <servlet>
         <servlet-name>SpringMVC</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--此参数可以不配置，默认值为：/WEB-INF/springmvc-servlet.xml-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring-mvc.xml</param-value>
+            <!--Spring MVC配置文件路径 -->
+            <param-value>/WEB-INF/spring-mvc.xml,
+                classpath:spring-email.xml
+            </param-value>
         </init-param>
+        <!-- 启动动优先级，越小越早加载 -->
         <load-on-startup>1</load-on-startup>
-        <!--web.xml 3.0的新特性，是否支持异步-->
-        <async-supported>true</async-supported>
     </servlet>
+
+
+    <!-- Spring MVC servlet -->
+<!--    <servlet>-->
+<!--        <servlet-name>SpringMVC</servlet-name>-->
+<!--        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+<!--        &lt;!&ndash;此参数可以不配置，默认值为：/WEB-INF/springmvc-servlet.xml&ndash;&gt;-->
+<!--        <init-param>-->
+<!--            <param-name>contextConfigLocation</param-name>-->
+<!--            <param-value>/WEB-INF/spring-mvc.xml</param-value>-->
+<!--        </init-param>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--        &lt;!&ndash;web.xml 3.0的新特性，是否支持异步&ndash;&gt;-->
+<!--        <async-supported>true</async-supported>-->
+<!--    </servlet>-->
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
         <url-pattern>/</url-pattern>

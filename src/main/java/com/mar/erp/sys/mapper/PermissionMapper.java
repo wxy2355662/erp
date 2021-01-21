@@ -2,6 +2,7 @@ package com.mar.erp.sys.mapper;
 
 import com.mar.erp.sys.model.Permission;
 import com.mar.erp.sys.vo.PermissionVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,7 +32,24 @@ public interface PermissionMapper {
      * 根据父节点找到所有父节点下的子节点
      * @return
      */
-    List<Permission>  queryPrimaryByPid(Integer pid);
+    List<PermissionVo>  queryPrimaryByPid(Integer pid);
+
+    /**
+     * 根据用户名查询到用户下所有的根节点 为空查询所有
+     * @param userName
+     * @return
+     */
+    List<PermissionVo> findPrimaryByUserName(@Param("userName") String userName);
+
+    /**
+     * 根据用户名查询到用户下根节点的子节点 为空查询所有
+     * @param userName 用户名
+     * @param perId  父节点id
+     * @return
+     */
+    List<PermissionVo> findPrimaryByPerId(@Param("userName") String userName,
+                                        @Param("perId") Integer perId);
+
 
 
 }

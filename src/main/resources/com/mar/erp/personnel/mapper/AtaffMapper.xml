@@ -25,9 +25,99 @@
     from erp_ataff
     where ata_id = #{ataId,jdbcType=BIGINT}
   </select>
+    <select id="queryByLogin" resultType="com.mar.erp.personnel.vo.AtaffVo">
+      select <include refid="Base_Column_List" /> from erp_ataff where ata_username=#{userName}
+    </select>
+<!--    <select id="queryAtaff" resultType="com.mar.erp.personnel.model.Ataff">-->
+<!--      select <include refid="Base_Column_List" /> from erp_ataff where 1=1-->
+<!--      <if test="ataUsername!=null">-->
+<!--        and ata_username like concat('%',#{ataUsername},'%')-->
+<!--      </if>-->
+<!--      <if test="ataRealname !=null ">-->
+<!--        and ata_realname like concat('%',#{ataRealname},'%')-->
+<!--      </if>-->
+<!--      <if test="ataSex !=null ">-->
+<!--        and ata_sex = #{ataSex}-->
+<!--      </if>-->
+
+<!--      <if test="ataEmail !=null ">-->
+<!--        and ata_email like concat('%',#{ataEmail},'%')-->
+<!--      </if>-->
+
+<!--      <if test="ataPhone !=null ">-->
+<!--        and ata_phone like concat('%',#{ataPhone},'%')-->
+<!--      </if>-->
+
+<!--      <if test="ataAddress !=null ">-->
+<!--        and ata_address like concat('%',#{ataAddress},'%')-->
+<!--      </if>-->
+
+<!--      <if test="startDate !=null ">-->
+<!--        and ata_date &gt;= #{startDate}-->
+<!--      </if>-->
+
+<!--      <if test="endDate !=null ">-->
+<!--        and ata_date &lt;= #{endDate}-->
+<!--      </if>-->
+<!--    </select>-->
+    <select id="queryAtaByRoleId" resultType="java.lang.Integer">
+        select role_id from erp_ataff_role where a_id=#{ataId}
+    </select>
+    <select id="findRole" resultType="java.lang.String">
+      select distinct(r.role_name) from erp_ataff a,erp_ataff_role ar,erp_role r where a.ata_id=ar.a_id
+    and ar.role_id = r.role_id and a.ata_username=#{ataUserName} and r.role_name is not null
+    </select>
+  <select id="findPermissions" resultType="java.lang.String">
+        select distinct(p.permission)
+from erp_ataff a,erp_ataff_role ar,erp_role r,erp_role_permission rp,erp_permission p where a.ata_id=ar.a_id
+and ar.role_id = r.role_id and r.role_id=rp.role_id and rp.per_id = p.per_id and a.ata_username=#{ataUserName} and p.permission is not null
+  </select>
+  <select id="queryAtaffByCrux" resultType="java.util.Map">
+    select a.ata_id as ataId,a.ata_username as ataUsername,a.ata_password as ataPassword,a.ata_realname as ataRealname,
+a.ata_sex as ataSex ,a.ata_email as ataEmail , a.ata_phone as ataPhone ,date_format(a.ata_date,'%Y-%m-%d') as ataDate,d.dep_name as ataDep,
+a.ata_dep as aId,
+a.ata_address as ataAddress
+from erp_ataff a,erp_department d where a.ata_dep = d.dep_id
+    <if test="ataUsername!=null">
+      and a.ata_username like concat('%',#{ataUsername},'%')
+    </if>
+    <if test="ataRealname !=null ">
+      and a.ata_realname like concat('%',#{ataRealname},'%')
+    </if>
+    <if test="ataSex !=null ">
+      and a.ata_sex like concat('%',#{ataSex},'%')
+    </if>
+
+    <if test="ataEmail !=null ">
+      and a.ata_email like concat('%',#{ataEmail},'%')
+    </if>
+
+    <if test="ataPhone !=null ">
+      and a.ata_phone like concat('%',#{ataPhone},'%')
+    </if>
+
+    <if test="ataAddress !=null ">
+      and a.ata_address like concat('%',#{ataAddress},'%')
+    </if>
+
+    <if test="startDate !=null ">
+      and a.ata_date &gt;= #{startDate}
+    </if>
+
+    <if test="endDate !=null ">
+      and a.ata_date &lt;= #{endDate}
+    </if>
+
+  </select>
+  <select id="findAtaffByEmail" resultType="com.mar.erp.personnel.model.Ataff">
+    select <include refid="Base_Column_List" /> from erp_ataff where ata_email=#{email}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_ataff
     where ata_id = #{ataId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteAtaByAtaId">
+    delete from erp_ataff_role where a_id = #{ataId}
   </delete>
   <insert id="insert" parameterType="com.mar.erp.personnel.model.Ataff" >
     insert into erp_ataff (ata_id, ata_username, ata_password, 
@@ -105,6 +195,12 @@
         #{ataAddress,jdbcType=VARCHAR},
       </if>
     </trim>
+  </insert>
+  <insert id="addAtaByRoleId">
+    insert into erp_ataff_role(a_id,role_id) values
+    <foreach collection="roleIds"  separator="," item="roleId">
+      (#{ataId},#{roleId})
+    </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.personnel.model.Ataff" >
     update erp_ataff
