@@ -22,16 +22,85 @@
     from erp_order_out
     where o_id = #{oId,jdbcType=BIGINT}
   </select>
+<!--  查询所有审核状态的退货商品信息-->
+    <select id="OrderOutAllpage" resultType="java.util.Map">
+     select o.o_id as oId,o.o_createtime as oCreatetime,o_create_person as oCreatePerson,c.c_name as cName, o.o_money as oMoney,o.o_state as oState ,o.p_waybill as pWaybill,o.order_id as orderId
+     from erp_order_out o ,erp_curstrumer c where  o.c_id =c.c_id
+
+      <if test="oId != null and ''!= oId" >
+        and o.o_id like concat('%',#{oId},'%')
+      </if>
+
+      <if test=" null != Time and ''!=Time" >
+        and  o.o_createtime  &gt;= #{Time}
+      </if>
+      <if test=" null != end and ''!=end" >
+        and  o.o_createtime &lt;= #{end}
+      </if>
+      <if test="cName != null and ''!= cName" >
+        and c.c_name like concat('%',#{cName},'%')
+      </if>
+
+      order by o.o_id desc
+    </select>
+<!--  查询状态未等待审核的退货订单-->
+    <select id="OrderOutByState" resultType="java.util.Map">
+     select o.o_id as oId,o.o_createtime as oCreatetime,o_create_person as oCreatePerson,c.c_name as cName, o.o_money as oMoney,o.o_state as oState ,o.p_waybill as pWaybill,o.order_id as orderId
+     from erp_order_out o ,erp_curstrumer c where  o.c_id =c.c_id
+     and o.o_state =0
+
+      <if test="oId != null and ''!= oId" >
+        and o.o_id like concat('%',#{oId},'%')
+      </if>
+
+      <if test=" null != Time and ''!=Time" >
+        and  o.o_createtime  &gt;= #{Time}
+      </if>
+      <if test=" null != end and ''!=end" >
+        and  o.o_createtime &lt;= #{end}
+      </if>
+      <if test="cName != null and ''!= cName" >
+        and c.c_name like concat('%',#{cName},'%')
+      </if>
+
+      order by o.o_id desc
+
+    </select>
+
+<!--  查询订单退货状态为未通过的退货订单-->
+  <select id="OrderOutBySataeOne" resultType="java.util.Map">
+     select o.o_id as oId,o.o_createtime as oCreatetime,o_create_person as oCreatePerson,c.c_name as cName, o.o_money as oMoney,o.o_state as oState ,o.p_waybill as pWaybill,o.order_id as orderId
+     from erp_order_out o ,erp_curstrumer c where  o.c_id =c.c_id
+     and o.o_state =1
+
+    <if test="oId != null and ''!= oId" >
+      and o.o_id like concat('%',#{oId},'%')
+    </if>
+
+    <if test=" null != Time and ''!=Time" >
+      and  o.o_createtime  &gt;= #{Time}
+    </if>
+    <if test=" null != end and ''!=end" >
+      and  o.o_createtime &lt;= #{end}
+    </if>
+    <if test="cName != null and ''!= cName" >
+      and c.c_name like concat('%',#{cName},'%')
+    </if>
+
+    order by o.o_id desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_order_out
     where o_id = #{oId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mar.erp.sell.model.OrderOut" >
-    insert into erp_order_out (o_id, o_createtime, o_create_person, 
-      c_id, o_money, o_state, 
+
+<!--  添加退货订单的方法-->
+  <insert id="insert" parameterType="com.mar.erp.sell.model.OrderOut" keyProperty="oId" useGeneratedKeys="true">
+    insert into erp_order_out ( o_create_person,
+      c_id, o_money,
       p_waybill, order_id)
-    values (#{oId,jdbcType=BIGINT}, #{oCreatetime,jdbcType=TIMESTAMP}, #{oCreatePerson,jdbcType=VARCHAR}, 
-      #{cId,jdbcType=BIGINT}, #{oMoney,jdbcType=DECIMAL}, #{oState,jdbcType=INTEGER}, 
+    values (#{oCreatePerson,jdbcType=VARCHAR},
+      #{cId,jdbcType=BIGINT}, #{oMoney,jdbcType=DECIMAL},
       #{pWaybill,jdbcType=VARCHAR}, #{orderId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.mar.erp.sell.model.OrderOut" >
@@ -126,5 +195,10 @@
       p_waybill = #{pWaybill,jdbcType=VARCHAR},
       order_id = #{orderId,jdbcType=BIGINT}
     where o_id = #{oId,jdbcType=BIGINT}
+  </update>
+  <update id="updateState">
+update erp_order_out set o_state=#{oState} where o_id=#{oId}
+
+
   </update>
 </mapper>

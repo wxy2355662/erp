@@ -21,12 +21,65 @@
     from erp_order
     where order_id = #{orderId,jdbcType=BIGINT}
   </select>
+<!--  查询所有订单+分页查询+模糊查询-->
+    <select id="OrderAllpage" resultType="java.util.Map">
+      select o.order_id as orderId ,c.c_name as cName ,c.c_id as cId, o.order_create as orderCreate ,o.order_create_person as orderCreatePerson,o.order_ydh as orderYdh,o.order_money as orderMoney ,o.order_statc as orderStatc
+      from  erp_order o ,erp_curstrumer c where o.order_cid=c.c_id
+
+      <if test="orderId != null and ''!= orderId" >
+        and o.order_id like concat('%',#{orderId},'%')
+      </if>
+
+      <if test=" null != Time and ''!=Time" >
+        and  o.order_create  &gt;= #{Time}
+      </if>
+      <if test=" null != end and ''!=end" >
+        and  o.order_create &lt;= #{end}
+      </if>
+      <if test="cName != null and ''!= cName" >
+        and c.c_name like concat('%',#{cName},'%')
+      </if>
+
+
+     order by o.order_id desc
+
+    </select>
+  <select id="Orderbyid" resultType="com.mar.erp.sell.model.Order">
+     select o.order_id as orderId ,c.c_name as cName ,o.order_create as orderCreate ,o.order_create_person as orderCreatePerson,o.order_ydh as orderYdh,o.order_money as orderMoney ,o.order_statc as orderStatc
+      from  erp_order o ,erp_curstrumer c where o.order_cid=c.c_id
+    <if test="orderId != null and ''!= orderId" >
+      and o.order_id = #{orderId}
+    </if>
+
+
+  </select>
+  <select id="OrderAllpage1" resultType="java.util.Map">
+    select o.order_id as orderId ,c.c_name as cName ,o.order_create as orderCreate ,o.order_create_person as orderCreatePerson,o.order_ydh as orderYdh,o.order_money as orderMoney ,o.order_statc as orderStatc
+    from  erp_order o ,erp_curstrumer c where o.order_cid=c.c_id
+  	and (o.order_statc = 1 or  o.order_statc=3)
+
+    <if test="orderId != null and ''!= orderId" >
+      and o.order_id like concat('%',#{orderId},'%')
+    </if>
+
+    <if test=" null != Time and ''!=Time" >
+      and  o.order_create  &gt;= #{Time}
+    </if>
+    <if test=" null != end and ''!=end" >
+      and  o.order_create &lt;= #{end}
+    </if>
+    <if test="cName != null and ''!= cName" >
+      and c.c_name like concat('%',#{cName},'%')
+    </if>
+    order by o.order_id desc
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_order
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mar.erp.sell.model.Order" >
-    insert into erp_order (order_id, order_cid, order_create, 
+  <insert id="insert" parameterType="com.mar.erp.sell.model.Order" keyProperty="orderId" useGeneratedKeys="true">
+    insert into erp_order (order_id, order_cid, order_create,
       order_create_person, order_ydh, order_money, 
       order_statc)
     values (#{orderId,jdbcType=BIGINT}, #{orderCid,jdbcType=BIGINT}, #{orderCreate,jdbcType=TIMESTAMP}, 
@@ -115,5 +168,9 @@
       order_money = #{orderMoney,jdbcType=DECIMAL},
       order_statc = #{orderStatc,jdbcType=BIGINT}
     where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+<!--  修改订单状态-->
+  <update id="Order_type">
+   update erp_order set order_statc=#{orderStatc} where order_id=#{orderId}
   </update>
 </mapper>

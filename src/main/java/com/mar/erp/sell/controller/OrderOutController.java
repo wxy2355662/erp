@@ -175,6 +175,7 @@ public class OrderOutController {
         orderlist.setOroGoodName(o.getGoodName());
         orderlist.setOroGoodPrice(o.getGoodPrice());
         orderlist.setOroGoodCount(o.getGoodCount());
+        orderlist.setOroState(0);
         orderlist.setOroMoney(o.getGoodMoney());
         list.add(orderlist);
         }

@@ -25,18 +25,26 @@
     from erp_order_out_details
     where oro_id = #{oroId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+<!--  根据退货订单id找到退货订单明细该订单的所有-->
+    <select id="OrderOutAllpage1" resultType="java.util.Map">
+
+select u.oro_id as oroId,u.oro_good_id as oroGoodId,u.oro_good_name as oroGoodName,u.oro_good_price as oroGoodPrice,u.oro_good_count as oroGoodCount,u.oro_order_id as oroOrderId,
+u.oro_money as  oroMoney,u.oro_state as oroState,u.o_id as oId,u.warehouse_id as warehouseId
+from erp_order_out o, erp_order_out_details u where o.o_id = u.o_id and  o.o_id=#{oId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_order_out_details
     where oro_id = #{oroId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.mar.erp.sell.model.OrderOutDetails" >
-    insert into erp_order_out_details (oro_id, oro_good_id, oro_good_name, 
+    insert into erp_order_out_details ( oro_good_id, oro_good_name,
       oro_good_price, oro_good_count, oro_order_id, 
-      oro_money, oro_state, o_id, 
+      oro_money, o_id,
       warehouse_id)
-    values (#{oroId,jdbcType=BIGINT}, #{oroGoodId,jdbcType=BIGINT}, #{oroGoodName,jdbcType=VARCHAR}, 
+    values (#{oroGoodId,jdbcType=BIGINT}, #{oroGoodName,jdbcType=VARCHAR},
       #{oroGoodPrice,jdbcType=DECIMAL}, #{oroGoodCount,jdbcType=INTEGER}, #{oroOrderId,jdbcType=BIGINT}, 
-      #{oroMoney,jdbcType=DECIMAL}, #{oroState,jdbcType=INTEGER}, #{oId,jdbcType=BIGINT}, 
+      #{oroMoney,jdbcType=DECIMAL},  #{oId,jdbcType=BIGINT},
       #{warehouseId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.mar.erp.sell.model.OrderOutDetails" >

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IStoreServiceImpl implements IStoreService {
@@ -19,6 +20,11 @@ public class IStoreServiceImpl implements IStoreService {
     public JsonResponseBody<?> selectStore() {
         List<Store> stores = storeMapper.selectStore();
         return new JsonResponseBody<>(stores);
+    }
+
+    @Override
+    public List<Map<String, Object>> Storeall() {
+        return storeMapper.Storeall();
     }
 
 

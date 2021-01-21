@@ -24,16 +24,29 @@
     from erp_order_list
     where ol_id = #{olId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<!--  查询订单明细-->
+    <select id="OrderListAll" resultType="java.util.Map">
+      select l.ol_id as olId,o.order_id as orderId,l.good_id as goodId,l.good_name as goodName,l.good_price as goodPrice,
+      l.good_count as goodCount,good_money as goodMoney,l.good_type as goodType , l.good_oid as goodOid from erp_order o,
+      erp_order_list l where  o.order_id =l.order_id
+      <if test="orderId != null and ''!= orderId" >
+        and o.order_id= #{orderId}
+      </if>
+      order by l.ol_id asc
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_order_list
     where ol_id = #{olId,jdbcType=BIGINT}
   </delete>
+<!--  添加订单明细-->
   <insert id="insert" parameterType="com.mar.erp.sell.model.OrderList" >
-    insert into erp_order_list (ol_id, order_id, good_id, 
+    insert into erp_order_list ( order_id, good_id,
       good_name, good_price, good_count, 
       good_money, good_type, good_oid
       )
-    values (#{olId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodId,jdbcType=BIGINT}, 
+    values ( #{orderId,jdbcType=BIGINT}, #{goodId,jdbcType=BIGINT},
       #{goodName,jdbcType=VARCHAR}, #{goodPrice,jdbcType=DECIMAL}, #{goodCount,jdbcType=BIGINT}, 
       #{goodMoney,jdbcType=DECIMAL}, #{goodType,jdbcType=INTEGER}, #{goodOid,jdbcType=BIGINT}
       )
@@ -141,4 +154,16 @@
       good_oid = #{goodOid,jdbcType=BIGINT}
     where ol_id = #{olId,jdbcType=BIGINT}
   </update>
+
+<!-- 修改订单商品状态-->
+  <update id="Orderbygoodtype">
+   update erp_order_list o
+   set o.good_type=1
+   where  o.ol_id =#{olId} and o.good_id=#{goodId}
+  </update>
+    <update id="UpdateGoodstate">
+    update erp_order_list set good_type=0 where order_id = #{orderId}
+    </update>
+
+
 </mapper>

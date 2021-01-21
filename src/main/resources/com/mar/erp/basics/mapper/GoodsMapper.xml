@@ -36,6 +36,17 @@
     </if>
 
   </select>
+  <!--  查询所有的商品信息-->
+  <select id="Goodsall" resultType="java.util.Map">
+    select  <include refid="Base_Column_List"/> from erp_goods
+  </select>
+
+  <!--  查询单个商品-->
+  <select id="GoodsBYID" resultType="com.mar.erp.basics.model.Goods">
+    select  <include refid="Base_Column_List"/> from erp_goods
+    where g_name=#{gName}
+
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_goods

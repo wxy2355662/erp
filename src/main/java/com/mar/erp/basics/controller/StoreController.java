@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/store")
 public class StoreController {
@@ -29,6 +32,20 @@ public class StoreController {
         } catch (Exception e) {
             throw new BusinessException(ResponseStatus.STATUS_604);
         }
+    }
+
+    // 所有出库信息的方法
+    @RequestMapping("/StoreAll")
+    @ResponseBody
+    public JsonResponseBody StoreALL(){
+        //查询订单
+        List<Map<String,Object>> json= storeService.Storeall();
+        //返回一个JsonResponseBody
+        JsonResponseBody< List<Map<String,Object>>> j=new JsonResponseBody<>();
+        //为JsonResponseBody 设置数据
+        // 数据
+        j.setData(json);
+        return  j;
     }
 
 

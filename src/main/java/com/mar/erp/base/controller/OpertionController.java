@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/opertion")
 public class OpertionController {
@@ -37,6 +40,49 @@ public class OpertionController {
         } catch (Exception e) {
             throw new BusinessException(ResponseStatus.STATUS_601);
         }
+    }
+
+    //添加操作记录的方法
+    @RequestMapping("/toAddoperation")
+    @ResponseBody
+    public JsonResponseBody OrderOutState(Operation operation){
+
+        try {
+            System.out.println("添加"+operation);
+
+            //查询订单
+            int json= operationService.insert(operation);
+            JsonResponseBody jsonResponseBody=new JsonResponseBody();
+
+            jsonResponseBody.setMsg("ok");
+            return jsonResponseBody;
+        } catch (Exception e) {
+            throw new BusinessException(ResponseStatus.STATUS_601);
+        }
+
+    }
+
+
+
+    //根据订单编号查询订单的所有信息
+    @RequestMapping("/toSelectOperationByid")
+    @ResponseBody
+    public JsonResponseBody OrderOutStateoOne(Operation operation){
+
+
+        //查询订单
+        List<Map<String,Object>> json= operationService.SelectOperationById(operation);
+
+
+        System.out.println("查询查询"+json);
+
+
+        //返回一个JsonResponseBody
+        JsonResponseBody< List<Map<String,Object>>> j=new JsonResponseBody<>();
+        //为JsonResponseBody 设置数据
+        // 数据
+        j.setData(json);
+        return  j;
     }
 
 

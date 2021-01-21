@@ -19,6 +19,11 @@
     where sd_id = #{sdId,jdbcType=BIGINT}
   </select>
 
+  <!--  根据仓库编号和商品编号找到库存数量-->
+  <select id="selectbysrg" resultType="com.mar.erp.repertory.model.Storedetail">
+        select  sdl.sd_num as sdNum  from erp_storedetail sdl where sdl.sr_id=#{srId}  and sdl.g_id=#{gId}
+    </select>
+
   <select id="selectStoredetail" resultType="com.mar.erp.repertory.vo.StoredetailVo">
     select <include refid="Base_Column_List"/> from erp_storedetail where sr_id=#{srId} and g_id=#{gId}
   </select>
@@ -87,4 +92,8 @@
       sd_num = #{sdNum,jdbcType=BIGINT}
     where sd_id = #{sdId,jdbcType=BIGINT}
   </update>
+  <update id="updatebysrg">
+     update erp_storedetail set sd_num= #{sdNum} where sr_id=#{srId} and g_id=#{gId}
+  </update>
+
 </mapper>

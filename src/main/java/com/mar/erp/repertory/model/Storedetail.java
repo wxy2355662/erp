@@ -9,6 +9,16 @@ public class Storedetail {
 
     private Long sdNum;
 
+    private Long Num;
+
+    public Long getNum() {
+        return Num;
+    }
+
+    public void setNum(Long num) {
+        Num = num;
+    }
+
     public Storedetail(Long sdId, Long srId, Long gId, Long sdNum) {
         this.sdId = sdId;
         this.srId = srId;

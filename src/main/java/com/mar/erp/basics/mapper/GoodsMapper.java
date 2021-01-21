@@ -4,6 +4,7 @@ import com.mar.erp.basics.model.Goods;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("goodsMapper")
 public interface GoodsMapper {
@@ -25,5 +26,12 @@ public interface GoodsMapper {
 
     //根据商品名查询单个
     Goods selectDgGoods(Goods goods);
+
+
+    //    查询所有的商品
+    List<Map<String, Object>> Goodsall();
+
+    //查询单个商品
+    Goods GoodsBYID(Goods goods);
 
 }

@@ -4,6 +4,7 @@ import com.mar.erp.basics.model.Store;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface StoreMapper {
@@ -21,6 +22,9 @@ public interface StoreMapper {
 
     //查询所有的仓库
     List<Store> selectStore();
+
+    //查询所有仓库
+    List<Map<String,Object>> Storeall ();
 
 
 

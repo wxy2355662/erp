@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IOperationServiceImpl implements IOperationService {
@@ -25,6 +26,17 @@ public class IOperationServiceImpl implements IOperationService {
     public JsonResponseBody<?> insertSelective(Operation record) {
         int i = operationMapper.insertSelective(record);
         return new JsonResponseBody<>(i);
+    }
+
+
+    @Override
+    public int insert(Operation record) {
+        return operationMapper.insert(record);
+    }
+
+    @Override
+    public List<Map<String, Object>> SelectOperationById(Operation operation) {
+        return operationMapper.SelectOperationById(operation);
     }
 
 

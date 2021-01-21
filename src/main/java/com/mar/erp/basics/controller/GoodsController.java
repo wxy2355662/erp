@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/goods")
@@ -41,6 +42,43 @@ public class GoodsController {
         JsonResponseBody<Goods> j=new JsonResponseBody<>();
         j.setData(goods1);
         return j;
+    }
+
+
+
+
+
+ //HUANG QI DE
+    //查询所有商品信息
+    @RequestMapping("/goodsAll")
+    @ResponseBody
+    public JsonResponseBody StoreALL(){
+        //查询订单
+        List<Map<String,Object>> json= goodsService.Goodsall();
+
+        //返回一个JsonResponseBody
+        JsonResponseBody< List<Map<String,Object>>> j=new JsonResponseBody<>();
+        //为JsonResponseBody 设置数据
+        // 数据
+        j.setData(json);
+
+        return  j;
+    }
+
+    //查询单个商品信息
+    @RequestMapping("/goodsbyid")
+    @ResponseBody
+    public JsonResponseBody Storebyid(Goods goods){
+        //查询订单
+        Goods json= goodsService.GoodsBYID(goods);
+
+        //返回一个JsonResponseBody
+        JsonResponseBody<Goods> j=new JsonResponseBody<>();
+
+        //为JsonResponseBody 设置数据
+        j.setData(json);
+
+        return  j;
     }
 
 

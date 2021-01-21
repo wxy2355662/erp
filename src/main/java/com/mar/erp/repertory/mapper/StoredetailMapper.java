@@ -26,5 +26,11 @@ public interface StoredetailMapper {
     Storedetail selectStoredetail(StoredetailVo storedetailVo);
 
 
+    //根据出库编号和仓库编号找到库存数量
+    Storedetail selectbysrg(Storedetail storedetail);
+    //根据出库编号和仓库编号修改到库存数量（出库）
+    int updatebysrg(Storedetail storedetail);
+
+
 
 }

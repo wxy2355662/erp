@@ -25,7 +25,7 @@ public class SupplierController {
         List<Supplier> suppliers = supplierService.selectSupplier();
         JsonResponseBody<List<Supplier>> j=new JsonResponseBody();
         j.setData(suppliers);
-        j.setStatus(603);
+        j.setStatus(200);
         return j;
     }
 

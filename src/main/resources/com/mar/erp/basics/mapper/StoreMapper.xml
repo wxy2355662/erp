@@ -22,6 +22,12 @@
     <select id="selectStore" resultType="com.mar.erp.basics.model.Store">
         select <include refid="Base_Column_List"/> from erp_store
     </select>
+  <!--  查询所有仓库-->
+  <select id="Storeall" resultType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from erp_store
+  </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_store

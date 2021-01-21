@@ -31,5 +31,16 @@ public class StoredetailServiceImpl implements IStoredetailService {
     }
 
 
+    @Override
+    public Storedetail selectbysrg(Storedetail storedetail) {
+        return storedetailMapper.selectbysrg(storedetail);
+    }
+
+    @Override
+    public int updatebysrg(Storedetail storedetail) {
+        return storedetailMapper.updatebysrg(storedetail);
+    }
+
+
 
 }

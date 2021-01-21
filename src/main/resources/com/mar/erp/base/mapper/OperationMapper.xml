@@ -22,6 +22,10 @@
     where c_id = #{cId,jdbcType=BIGINT}
   </select>
 
+  <select id="SelectOperationById" resultType="java.util.Map">
+   select  c_id as cId,c_name as cName,c_info as cInfo,c_jg as cJg,c_pid as cPid,c_time as cTime, c_type as cType from erp_operation
+   where c_pid=#{cPid}
+  </select>
 
     <select id="queryOpertion" resultType="com.mar.erp.base.model.Operation">
         select * from erp_operation where c_pid=#{cPid}
@@ -33,11 +37,11 @@
     where c_id = #{cId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.mar.erp.base.model.Operation" >
-    insert into erp_operation (c_id, c_name, c_info, 
-      c_jg, c_pid, c_time, 
+    insert into erp_operation ( c_name, c_info,
+      c_jg, c_pid,
       c_type)
-    values (#{cId,jdbcType=BIGINT}, #{cName,jdbcType=VARCHAR}, #{cInfo,jdbcType=VARCHAR}, 
-      #{cJg,jdbcType=VARCHAR}, #{cPid,jdbcType=BIGINT}, #{cTime,jdbcType=TIMESTAMP}, 
+    values ( #{cName,jdbcType=VARCHAR}, #{cInfo,jdbcType=VARCHAR},
+      #{cJg,jdbcType=VARCHAR}, #{cPid,jdbcType=BIGINT},
       #{cType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mar.erp.base.model.Operation" >

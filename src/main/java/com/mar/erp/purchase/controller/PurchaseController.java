@@ -48,10 +48,8 @@ public class PurchaseController {
             System.out.println(list);
             //供应商
             String pSupplieruuid=(String) mlist.get("pSupplieruuid");
-            System.out.println("供应商:"+pSupplieruuid);
             //订单总金额
             BigDecimal pTotalmoney = BigDecimal.valueOf( Double.valueOf( mlist.get("pTotalmoney").toString()));
-            System.out.println("总金额:"+pTotalmoney.longValue());
 
             Purchase purchase=new Purchase();
             //订单主键
@@ -65,7 +63,6 @@ public class PurchaseController {
             purchase.setpTotalmoney(pTotalmoney.longValue());
             purchase.setpSupplieruuid(pSupplieruuid);
 
-            System.out.println("对象:"+purchase);
 
             return purchaseService.insertSelective(purchase);
         } catch (Exception e) {

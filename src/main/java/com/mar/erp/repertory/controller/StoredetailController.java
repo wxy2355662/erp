@@ -161,6 +161,74 @@ public class StoredetailController {
 
 
 
+    //出库的方法
+    @RequestMapping("/tochuku")
+    @ResponseBody
+    public JsonResponseBody Storedetailck(Storedetail storedetail){
+        JsonResponseBody<Storedetail> j =new JsonResponseBody<>();
+        //得到出库的库存数量
+        Storedetail sdNum= storedetailService.selectbysrg(storedetail);
+        if(null!=sdNum){
+            //减少库存数量
+            storedetail.setSdNum(sdNum.getSdNum());
+
+
+
+        if(storedetail.getSdNum()>=storedetail.getNum()){
+
+            storedetail.setSdNum(sdNum.getSdNum()-storedetail.getNum());
+            //返回大于1（）
+            int i=storedetailService.updatebysrg(storedetail);
+            //为JsonResponseBody 设置数据
+            // 数据
+            if(i>0){
+                j.setMsg("出库成功");
+            }
+
+        }else{
+            j.setMsg("库存数量不足");
+        }
+
+        }else{
+            j.setMsg("库存数量不足");
+        }
+
+        return  j;
+
+    }
+
+    //出库的方法
+    @RequestMapping("/toruku")
+    @ResponseBody
+    public JsonResponseBody Storedetailckrk(Storedetail storedetail){
+        JsonResponseBody<Storedetail> j =new JsonResponseBody<>();
+        //得到出库的库存数量
+        Storedetail sdNum= storedetailService.selectbysrg(storedetail);
+        //减少库存数量
+        System.out.println(storedetail.getSrId());
+        System.out.println(storedetail.getgId());
+
+
+        if(null!=sdNum){
+            storedetail.setSdNum(sdNum.getSdNum()+storedetail.getNum());
+            //返回大于1（）
+            int i=storedetailService.updatebysrg(storedetail);
+            //为JsonResponseBody 设置数据
+            // 数据
+            if(i>0){
+                j.setMsg("入库成功");
+            }
+        }else {
+            j.setMsg("该商品不在这个仓库");
+        }
+
+        return  j;
+
+    }
+
+
+
+
 
 
 
