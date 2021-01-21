@@ -17,6 +17,36 @@
     from erp_ataff_role
     where ar_id = #{arId,jdbcType=INTEGER}
   </select>
+    <select id="querySales" resultType="java.util.Map">
+      select gt.t_name as tName,sum(ol.good_money) as sumPrice from erp_goods_type gt,erp_goods g,erp_order_list ol,erp_order o where gt.t_id=g.t_id and g.g_id=ol.good_id and ol.order_id=o.order_id
+      <if test="null!=startTime">
+        and o.order_create &gt;= #{startTime}
+      </if>
+      <if test="null!=endTime">
+        and o.order_create &lt;= #{endTime}
+      </if>
+
+      GROUP BY gt.t_name  ORDER BY sum(ol.good_money) desc
+    </select>
+  <select id="querySalesYear" resultType="java.lang.String">
+    select DISTINCT SUBSTRING(order_create,1,4) from erp_order
+  </select>
+  <select id="querySalesMonthByYear" resultType="java.util.Map">
+    select year(o.order_create) yy,month(o.order_create) as  mm,sum(ol.good_money) as money from erp_goods_type gt,erp_goods g,erp_order_list ol,erp_order o where gt.t_id=g.t_id and g.g_id=ol.good_id and ol.order_id=o.order_id
+    <if test="null != year">
+    and o.order_create like concat('',#{year},'%')
+    </if>
+    GROUP BY year(o.order_create),month(o.order_create)
+  </select>
+  <select id="querySalesByClient" resultType="java.util.Map">
+    select c.c_name as cName ,sum(o.order_money) as orderMoney  from erp_curstrumer c,erp_order o where o.order_cid =c.c_id
+
+    <if test="null != year">
+      and o.order_create like concat('',#{year},'%')
+    </if>
+
+    GROUP BY c.c_name ORDER BY sum(o.order_money) desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from erp_ataff_role
     where ar_id = #{arId,jdbcType=INTEGER}

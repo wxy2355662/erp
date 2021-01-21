@@ -123,6 +123,18 @@
       <version>${mybatis.spring.version}</version>
     </dependency>
 
+    <!--引入JWT依赖,由于是基于Java，所以需要的是java-jwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+
     <!--dbcp2-->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -311,6 +323,17 @@
       <artifactId>shiro-spring</artifactId>
       <version>${shiro.version}</version>
     </dependency>
+
+
+    <!--邮件发送依赖-->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+
+
+
   </dependencies>
 
   <build>

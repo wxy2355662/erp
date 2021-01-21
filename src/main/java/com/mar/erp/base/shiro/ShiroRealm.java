@@ -1,6 +1,8 @@
 package com.mar.erp.base.shiro;
 
 
+import com.mar.erp.personnel.model.Ataff;
+import com.mar.erp.personnel.service.IAtaffService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -16,6 +18,9 @@ import java.util.Set;
  */
 public class ShiroRealm extends AuthorizingRealm {
 
+    @Autowired
+    private IAtaffService ataffService;
+
 
     /**
      * 授权
@@ -24,23 +29,18 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        //获取登录用户的username
-//        String username = principalCollection.getPrimaryPrincipal().toString();
-//
-//        //根据username获取用户的角色
-//        Set<String> roles = sysUserServlet.findRoles(username);
-//
-//        //根据username获取用户的权限
-//        Set<String> permissions = sysUserServlet.findPermissions(username);
-//
-//        //创建SimpleAuthorizationInfo
-//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-//        simpleAuthorizationInfo.setRoles(roles);
-//        simpleAuthorizationInfo.setStringPermissions(permissions);
-//
-//
-//        return simpleAuthorizationInfo;
-        return null;
+       //获取登录用户的username
+        String username = principalCollection.getPrimaryPrincipal().toString();
+
+        Set<String> roles = ataffService.findRole(username);
+        Set<String> permissions = ataffService.findPermissions(username);
+        //创建SimpleAuthorizationInfo
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.setRoles(roles);
+        simpleAuthorizationInfo.setStringPermissions(permissions);
+
+        return simpleAuthorizationInfo;
+
     }
 
     /**
@@ -52,28 +52,22 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 //       //获取登录的账号和密码信息
-//        String username = authenticationToken.getPrincipal().toString();
-//        String password = authenticationToken.getCredentials().toString();
-//        System.out.println("username:"+username);
-//        System.out.println("password:"+password);
+        String username = authenticationToken.getPrincipal().toString();
+
 //        //根据账号实现登录验证
-//        SysUser sysUser = sysUserServlet.userLogin(username);
-//        //判断用户是否为null
-//        if(null==sysUser)
-//            throw  new UnknownAccountException("账号错误");
-//
-//        //创建SimpleAuthenticationInfo 验证对象 用于验证令牌里的数据是否和传入的数据匹配
-//        //令牌里的密码会进行编码
-//        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
-//                sysUser.getUsername(),
-//                sysUser.getPassword(),
-//                ByteSource.Util.bytes(sysUser.getSalt()),
-//                this.getName()
-//        );
-//
-//
-//
-//        return simpleAuthenticationInfo;
-        return null;
+        Ataff ataff = ataffService.queryByLogin(username);
+        //没有账号就抛出异常
+        if(null==ataff)
+            throw  new UnknownAccountException();
+
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
+                ataff.getAtaUsername(),
+                ataff.getAtaPassword(),
+                this.getName()
+        );
+
+        return simpleAuthenticationInfo;
+
+
     }
 }

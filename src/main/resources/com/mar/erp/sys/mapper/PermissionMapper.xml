@@ -23,7 +23,27 @@
   <select id="queryPrimaryByParent" resultType="com.mar.erp.sys.vo.PermissionVo">
     SELECT <include refid="Base_Column_List" /> FROM erp_permission where pid=-1 ORDER BY per_id
   </select>
-  <select id="queryPrimaryByPid" resultType="com.mar.erp.sys.model.Permission">
+
+
+  <select id="findPrimaryByPerId" resultType="com.mar.erp.sys.vo.PermissionVo">
+       select p.*
+	from erp_ataff a,erp_ataff_role ar,erp_role r,erp_role_permission rp,erp_permission p where a.ata_id=ar.a_id
+	and ar.role_id = r.role_id and r.role_id=rp.role_id and rp.per_id = p.per_id and pid = #{perId}
+	 <if test="userName!=null">
+	    and a.ata_username=#{userName}
+     </if>
+    group by p.per_id
+  </select>
+  <select id="findPrimaryByUserName" resultType="com.mar.erp.sys.vo.PermissionVo">
+    select p.*
+    from erp_ataff a,erp_ataff_role ar,erp_role r,erp_role_permission rp,erp_permission p where a.ata_id=ar.a_id
+    and ar.role_id = r.role_id and r.role_id=rp.role_id and rp.per_id = p.per_id and pid = -1
+    <if test="userName!=null">
+      and a.ata_username=#{userName}
+    </if>
+    group by p.per_id
+  </select>
+  <select id="queryPrimaryByPid" resultType="com.mar.erp.sys.vo.PermissionVo">
     SELECT <include refid="Base_Column_List" /> FROM erp_permission where pid=#{pid} ORDER BY per_id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -51,6 +71,9 @@
       <if test="permission != null" >
         permission,
       </if>
+      <if test="icon != null" >
+        icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="perId != null" >
@@ -65,6 +88,9 @@
       <if test="permission != null" >
         #{permission,jdbcType=VARCHAR},
       </if>
+      <if test="icon != null" >
+        icon,
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.mar.erp.sys.model.Permission" >
@@ -78,6 +104,9 @@
       </if>
       <if test="permission != null" >
         permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon,
       </if>
     </set>
     where per_id = #{perId,jdbcType=INTEGER}
