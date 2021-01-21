@@ -17,7 +17,19 @@
     from erp_department
     where dep_id = #{depId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="queryDepartment" resultType="com.mar.erp.personnel.model.Department">
+      select <include refid="Base_Column_List" /> from erp_department where 1=1
+      <if test="depName!=null">
+        and dep_name like concat('%',#{depName},'%')
+      </if>
+      <if test="depPhone != null">
+        and dep_phone like concat('%',#{depPhone},'%')
+      </if>
+    </select>
+    <select id="selectDepartmentByName" resultType="com.mar.erp.personnel.model.Department">
+        select <include refid="Base_Column_List" /> from erp_department where dep_name = #{depName}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_department
     where dep_id = #{depId,jdbcType=BIGINT}
   </delete>

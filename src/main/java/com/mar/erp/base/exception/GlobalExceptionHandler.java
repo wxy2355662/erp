@@ -1,6 +1,7 @@
 package com.mar.erp.base.exception;
 
 import com.mar.erp.base.util.ResponseStatus;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -39,14 +40,30 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
                 e.printStackTrace();
                 //自定义异常
                 mv.addObject("msg",((BusinessException) e).getMsg());
-                mv.addObject("code",((BusinessException) e).getCode());
+                mv.addObject("status",((BusinessException) e).getCode());
                 mv.addObject("success","false");
-            }else{
+            }
+            else if(e instanceof UnauthorizedException){
+                e.printStackTrace();
+                //自定义异常
+                mv.addObject("msg","无操作权限！");
+                mv.addObject("status","607");
+                mv.addObject("success","false");
+            }
+            else if(e instanceof UnauthenticatedException){
+                e.printStackTrace();
+                //自定义异常
+                mv.addObject("msg","登录身份过期，请重新登录！");
+                mv.addObject("status","605");
+                mv.addObject("success","false");
+            }
+            else
+                {
                 //控制台报错
                 e.printStackTrace();
                 //未知异常
                 mv.addObject("msg","系统崩溃了,请联系管理员！");
-                mv.addObject("code", "999");
+                mv.addObject("status", "999");
                 mv.addObject("success","false");
             }
             mv.setView(new MappingJackson2JsonView());

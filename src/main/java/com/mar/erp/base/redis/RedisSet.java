@@ -19,14 +19,16 @@ public class  RedisSet {
      * @param key
      * @param value
      */
-    public void setRedisData(String key,Object value){
+    public void setRedisData(String key,Object value,Integer time){
 //        System.out.println(key);
 //        System.out.println(value);
         redisTemplate.opsForValue().set(key,value);
         //设置过期时间  TimeUnit.MINUTES 单位
-        redisTemplate.expire(key,30,TimeUnit.MINUTES );
+        redisTemplate.expire(key,time,TimeUnit.MINUTES );
 
     }
+
+
 
     /**
      * 判断redis中key是否存在

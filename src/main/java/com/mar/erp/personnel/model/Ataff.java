@@ -1,7 +1,10 @@
 package com.mar.erp.personnel.model;
 
+import lombok.ToString;
+
 import java.util.Date;
 
+@ToString
 public class Ataff {
     private Long ataId;
 
@@ -35,6 +38,8 @@ public class Ataff {
         this.ataDep = ataDep;
         this.ataAddress = ataAddress;
     }
+
+
 
     public Ataff() {
         super();
