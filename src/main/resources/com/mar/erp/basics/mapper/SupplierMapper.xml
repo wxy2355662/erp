@@ -21,7 +21,12 @@
     from erp_supplier
     where s_id = #{sId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    <select id="selectSupplier" resultType="com.mar.erp.basics.model.Supplier">
+        select <include refid="Base_Column_List"/> from erp_supplier where 1=1
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_supplier
     where s_id = #{sId,jdbcType=BIGINT}
   </delete>

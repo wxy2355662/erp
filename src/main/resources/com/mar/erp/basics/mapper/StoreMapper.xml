@@ -18,7 +18,12 @@
     from erp_store
     where sr_id = #{srId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    <select id="selectStore" resultType="com.mar.erp.basics.model.Store">
+        select <include refid="Base_Column_List"/> from erp_store
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_store
     where sr_id = #{srId,jdbcType=BIGINT}
   </delete>

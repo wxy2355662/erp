@@ -16,12 +16,27 @@
   <sql id="Base_Column_List" >
     g_id, g_name, g_address, g_producer, g_unit, g_inprice, g_outprice, t_id
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from erp_goods
     where g_id = #{gId,jdbcType=BIGINT}
   </select>
+  <select id="selectGoods" resultType="com.mar.erp.basics.model.Goods">
+    select <include refid="Base_Column_List"/> from erp_goods where 1=1
+    <if test="null!=gProducer and ''!=gProducer">
+        and g_producer=#{gProducer}
+    </if>
+  </select>
+  <select id="selectDgGoods" resultType="com.mar.erp.basics.model.Goods">
+    select <include refid="Base_Column_List"/> from erp_goods where 1=1
+    <if test="null!=gName and ''!=gName">
+        and g_name=#{gName}
+    </if>
+
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from erp_goods
     where g_id = #{gId,jdbcType=BIGINT}
