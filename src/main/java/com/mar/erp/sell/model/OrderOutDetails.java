@@ -1,24 +1,25 @@
 package com.mar.erp.sell.model;
 
 public class OrderOutDetails {
+    //退货明细编号
     private Long oroId;
-
+    //商品编号
     private Long oroGoodId;
-
+    //商品名称
     private String oroGoodName;
-
+    //商品价格
     private Long oroGoodPrice;
-
+    //商品数量
     private Integer oroGoodCount;
-
+    //订单编号
     private Long oroOrderId;
-
+    //总金额
     private Long oroMoney;
-
+    //退货状态
     private Integer oroState;
-
+    //退货订单编号
     private Long oId;
-
+    //仓库号
     private Long warehouseId;
 
     public OrderOutDetails(Long oroId, Long oroGoodId, String oroGoodName, Long oroGoodPrice, Integer oroGoodCount, Long oroOrderId, Long oroMoney, Integer oroState, Long oId, Long warehouseId) {

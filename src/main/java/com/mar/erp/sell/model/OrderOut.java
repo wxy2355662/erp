@@ -1,23 +1,71 @@
 package com.mar.erp.sell.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class OrderOut {
+    //退货订单编号
     private Long oId;
-
+    //退货订单生成日期
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date oCreatetime;
-
+    //退货员
     private String oCreatePerson;
-
+    //客户id
     private Long cId;
-
+    //总金额
     private Long oMoney;
-
+    //退货状态
     private Integer oState;
-
+    //运单号
     private String pWaybill;
-
+    //订单id
     private Long orderId;
+
+
+
+
+
+    //客户姓名
+    private  String cName;
+
+    //最大时间
+    private  String Time;
+    //最小时间
+    private  String end;
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+
+
+
+
+
+
+
 
     public OrderOut(Long oId, Date oCreatetime, String oCreatePerson, Long cId, Long oMoney, Integer oState, String pWaybill, Long orderId) {
         this.oId = oId;

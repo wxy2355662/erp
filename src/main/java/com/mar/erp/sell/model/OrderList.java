@@ -1,23 +1,26 @@
 package com.mar.erp.sell.model;
 
 public class OrderList {
+    //订单明细编号
     private Long olId;
-
+    //订单编号
     private Long orderId;
-
-    private Long goodId;
-
+    //商品编号
+    private Long  goodId;
+    //商品名称
     private String goodName;
-
+    //商品单价
     private Long goodPrice;
-
+    //商品数量
     private Long goodCount;
-
+    //商品总金额
     private Long goodMoney;
-
+    //商品状态
     private Integer goodType;
-
+    //退货订单编号
     private Long goodOid;
+
+
 
     public OrderList(Long olId, Long orderId, Long goodId, String goodName, Long goodPrice, Long goodCount, Long goodMoney, Integer goodType, Long goodOid) {
         this.olId = olId;
