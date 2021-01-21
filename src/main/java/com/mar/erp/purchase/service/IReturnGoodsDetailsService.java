@@ -1,24 +1,13 @@
-package com.mar.erp.purchase.mapper;
+package com.mar.erp.purchase.service;
 
 import com.mar.erp.purchase.model.ReturnGoodsDetails;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Repository
-public interface ReturnGoodsDetailsMapper {
-    int deleteByPrimaryKey(Long rgId);
-
-    int insert(ReturnGoodsDetails record);
-
-
-    ReturnGoodsDetails selectByPrimaryKey(Long rgId);
+public interface IReturnGoodsDetailsService {
 
     //动态修改订单状态
     int updateByPrimaryKeySelective(ReturnGoodsDetails record);
-
-    int updateByPrimaryKey(ReturnGoodsDetails record);
 
     //根据订单编号查询订单详情
     List<ReturnGoodsDetails> selectDetailsDoods(ReturnGoodsDetails returnGoodsDetails);
@@ -28,6 +17,5 @@ public interface ReturnGoodsDetailsMapper {
 
     //动态生成退货订单明细数据
     int insertSelective(ReturnGoodsDetails record);
-
 
 }

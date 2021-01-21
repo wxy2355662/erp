@@ -106,4 +106,19 @@ public class PurchaseDetails {
     public void setPiRid(Long piRid) {
         this.piRid = piRid;
     }
+
+    @Override
+    public String toString() {
+        return "PurchaseDetails{" +
+                "piId=" + piId +
+                ", piGoodId=" + piGoodId +
+                ", piGoodName='" + piGoodName + '\'' +
+                ", piPrice=" + piPrice +
+                ", piNum=" + piNum +
+                ", piMoery=" + piMoery +
+                ", piState=" + piState +
+                ", piOid=" + piOid +
+                ", piRid=" + piRid +
+                '}';
+    }
 }

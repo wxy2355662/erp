@@ -3,6 +3,7 @@ package com.mar.erp.purchase.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class Purchase {
     private Long pId;
@@ -19,6 +20,16 @@ public class Purchase {
     private Integer pState;
 
     private String pWaybill;
+
+    private List<PurchaseDetails> purchaseList;
+
+    public List<PurchaseDetails> getPurchaseList() {
+        return purchaseList;
+    }
+
+    public void setPurchaseList(List<PurchaseDetails> purchaseList) {
+        this.purchaseList = purchaseList;
+    }
 
     public Purchase(Long pId, Date pCreatetime, String pCrecker, String pSupplieruuid, Long pTotalmoney, Integer pState, String pWaybill) {
         this.pId = pId;
@@ -88,5 +99,19 @@ public class Purchase {
 
     public void setpWaybill(String pWaybill) {
         this.pWaybill = pWaybill;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "pId=" + pId +
+                ", pCreatetime=" + pCreatetime +
+                ", pCrecker='" + pCrecker + '\'' +
+                ", pSupplieruuid='" + pSupplieruuid + '\'' +
+                ", pTotalmoney=" + pTotalmoney +
+                ", pState=" + pState +
+                ", pWaybill='" + pWaybill + '\'' +
+                ", purchaseList=" + purchaseList +
+                '}';
     }
 }

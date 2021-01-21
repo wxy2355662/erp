@@ -1,10 +1,13 @@
 package com.mar.erp.purchase.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ReturnGoods {
     private Long rId;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date rCreatetime;
 
     private String rCrecker;
@@ -96,5 +99,19 @@ public class ReturnGoods {
 
     public void setpId(Long pId) {
         this.pId = pId;
+    }
+
+    @Override
+    public String toString() {
+        return "ReturnGoods{" +
+                "rId=" + rId +
+                ", rCreatetime=" + rCreatetime +
+                ", rCrecker='" + rCrecker + '\'' +
+                ", rSupplieruuid=" + rSupplieruuid +
+                ", rTotalmoney=" + rTotalmoney +
+                ", rState=" + rState +
+                ", pWaybill='" + pWaybill + '\'' +
+                ", pId=" + pId +
+                '}';
     }
 }
